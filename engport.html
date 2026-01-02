@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aerospace Engineering Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a0e27;
+            --secondary: #151934;
+            --accent: #00f0ff;
+            --accent-2: #7b2ff7;
+            --text: #8892b0;
+            --bright: #e6f1ff;
+            --glow: rgba(0, 240, 255, 0.5);
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            z-index: 1;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            font-weight: 900;
+            color: var(--bright);
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-shadow: 0 0 20px var(--glow);
+        }
+
+        .tagline {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            color: var(--accent);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s 0.3s ease backwards;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .intro {
+            font-size: 1.2rem;
+            line-height: 1.9;
+            color: var(--text);
+            animation: fadeInUp 1s 0.6s ease backwards;
+            font-weight: 400;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-20px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        .scroll-indicator::before {
+            content: '';
+            width: 30px;
+            height: 50px;
+            border: 2px solid var(--accent);
+            border-radius: 20px;
+            display: block;
+            position: relative;
+            box-shadow: 0 0 15px var(--glow);
+        }
+
+        .scroll-indicator::after {
+            content: '';
+            width: 6px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 3px;
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: scrollDot 2s infinite;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        @keyframes scrollDot {
+            0% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+        }
+
+        section {
+            padding: 100px 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: var(--bright);
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            animation: expandWidth 0.8s ease forwards;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        @keyframes expandWidth {
+            to {
+                width: 100%;
+            }
+        }
+
+        .social-links {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(0, 240, 255, 0.05);
+            border: 2px solid var(--accent);
+            border-radius: 50px;
+            color: var(--accent);
+            text-decoration: none;
+            font-family: 'Space Mono', monospace;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .social-link:hover::before {
+            left: 0;
+        }
+
+        .social-link:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px var(--glow);
+        }
+
+        .social-icon {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: var(--secondary);
+            border-radius: 15px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 240, 255, 0.3);
+        }
+
+        .project-card:hover::before {
+            opacity: 0.08;
+        }
+
+        .project-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--bright);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            font-weight: 600;
+        }
+
+        .project-card p {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 0.8rem;
+            font-size: 1.05rem;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--accent);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 0.3rem;
+            position: relative;
+            z-index: 1;
+            font-family: 'Space Mono', monospace;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .skill-category h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .skill-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: var(--bright);
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+
+        .skill-bar {
+            height: 10px;
+            background: rgba(0, 240, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            border-radius: 10px;
+            animation: fillBar 1.5s ease-in-out;
+            transform-origin: left;
+            box-shadow: 0 0 10px var(--glow);
+        }
+
+        @keyframes fillBar {
+            from {
+                transform: scaleX(0);
+            }
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        .timeline {
+            position: relative;
+            margin-top: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: linear-gradient(180deg, var(--accent), var(--accent-2));
+            box-shadow: 0 0 10px var(--glow);
+        }
+
+        .timeline-item {
+            padding-left: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            opacity: 0;
+            animation: slideInLeft 0.8s ease forwards;
+        }
+
+        .timeline-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .timeline-item:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .timeline-item:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--accent);
+            border: 2px solid var(--primary);
+        }
+
+        .timeline-item h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--bright);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .timeline-item .date {
+            color: var(--accent);
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .achievement-card {
+            background: linear-gradient(135deg, var(--secondary) 0%, rgba(21, 25, 52, 0.5) 100%);
+            padding: 1.8rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+        }
+
+        .achievement-card:hover {
+            transform: translateX(10px);
+            box-shadow: -5px 5px 20px rgba(0, 240, 255, 0.3);
+            border-color: var(--accent);
+        }
+
+        .achievement-card h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--bright);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .achievement-card p {
+            font-size: 1.05rem;
+        }
+
+        .academic-section {
+            background: var(--secondary);
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-top: 3rem;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+        }
+
+        .academic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .academic-item h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .academic-item ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .academic-item li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 1.05rem;
+        }
+
+        .academic-item li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .cta {
+            text-align: center;
+            padding: 80px 2rem;
+        }
+
+        .cta h2 {
+            margin-bottom: 2rem;
+        }
+
+        .cta-text {
+            color: var(--text);
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .in-view {
+            animation: fadeInUp 1s ease;
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 1.5rem;
+            }
+            
+            .timeline::before {
+                left: 10px;
+            }
+            
+            .timeline-item {
+                padding-left: 2.5rem;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="stars"></canvas>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Systems Engineer</h1>
+            <p class="tagline">Aerospace • Research • Innovation</p>
+            <p class="intro">
+                Year 13 student approaching aerospace engineering as a systems problem through research-driven competitions, 
+                technical leadership, and independent development. Translating theory into working outcomes at the intersection 
+                of physics, computation, and sustainability.
+            </p>
+            <div class="social-links">
+                <a href="https://github.com/thelonMusk" target="_blank" class="social-link">
+                    <span class="social-icon">⚡</span>
+                    <span>GitHub</span>
+                </a>
+                <a href="mailto:aatiesh99@gmail.com" class="social-link">
+                    <span class="social-icon">✉</span>
+                    <span>Contact</span>
+                </a>
+            </div>
+        </div>
+        <div class="scroll-indicator"></div>
+    </div>
+
+    <section id="academic">
+        <h2>Academic Profile</h2>
+        <div class="academic-section">
+            <div class="academic-grid">
+                <div class="academic-item">
+                    <h4>NCEA Level 3 (In Progress)</h4>
+                    <ul>
+                        <li>Physics</li>
+                        <li>Calculus</li>
+                        <li>Chemistry</li>
+                        <li>Computer Science</li>
+                        <li>Product Design</li>
+                    </ul>
+                </div>
+                <div class="academic-item">
+                    <h4>NCEA Level 2 Results</h4>
+                    <ul>
+                        <li>40 Excellence credits</li>
+                        <li>9 Merit credits</li>
+                        <li>18 Achieved credits</li>
+                        <li>Strong external performance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2>Engineering Projects</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <h3>Low-Emission Jet Engine R&D</h3>
+                <p>Independent research into reduced-emission propulsion concepts, analyzing efficiency, materials constraints, and environmental impact through systems-level trade-off analysis.</p>
+                <p><strong>Status:</strong> Active research and development phase</p>
+                <div>
+                    <span class="tag">Propulsion</span>
+                    <span class="tag">Sustainability</span>
+                    <span class="tag">Systems Analysis</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>NASA Space Apps Challenge</h3>
+                <p>Led multidisciplinary team of 4-6 members through research-based problem definition and solution design.</p>
+                <p><strong>Outcome:</strong> Delivered functional prototype demonstrating systems integration under strict time constraints.</p>
+                <div>
+                    <span class="tag">Team Leadership</span>
+                    <span class="tag">Rapid Prototyping</span>
+                    <span class="tag">Research-Based</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>Computer Vision Hand Tracker</h3>
+                <p>Developed real-time hand tracking system with emotion inference capabilities, integrating software logic with live input processing.</p>
+                <p><strong>Tech:</strong> Python, computer vision algorithms, real-time processing optimization</p>
+                <div>
+                    <span class="tag">Python</span>
+                    <span class="tag">Computer Vision</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>Multi-Institution Engineering Challenges</h3>
+                <p>Team leader for University of Auckland Engineering Challenge and University of Canterbury Mechatronics Challenge.</p>
+                <p><strong>Focus:</strong> Research-driven problem solving, prototype development, cross-functional system integration</p>
+                <div>
+                    <span class="tag">Mechatronics</span>
+                    <span class="tag">Team Leadership</span>
+                    <span class="tag">Prototyping</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="leadership">
+        <h2>Leadership Impact</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <h3>Space Club - Founder & Leader</h3>
+                <p class="date">Current</p>
+                <p><strong>Problem:</strong> No sustained platform for student-driven aerospace research and experimentation.</p>
+                <p><strong>Action:</strong> Founded and structured club around practical projects, research methodologies, and collaborative problem-solving.</p>
+                <p><strong>Outcome:</strong> Grew to 30+ active members with ongoing technical projects and sustained engagement.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Spectrum STEM Club - Leader</h3>
+                <p class="date">Current</p>
+                <p><strong>Problem:</strong> Limited opportunities for hands-on engineering exploration outside curriculum.</p>
+                <p><strong>Action:</strong> Led student-driven engineering projects emphasizing practical development and systems thinking.</p>
+                <p><strong>Outcome:</strong> Established continuous project pipeline with measurable technical deliverables.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Interact Club - Service Director</h3>
+                <p class="date">2 Years</p>
+                <p><strong>Action:</strong> Managed stakeholder coordination, resource allocation, and sustained long-term service initiatives.</p>
+                <p><strong>Outcome:</strong> Developed organizational governance experience directly applicable to engineering project management.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Student Leadership & Governance</h3>
+                <p class="date">2 Years</p>
+                <p><strong>Roles:</strong> Student Leader, Executive Committee Member, IPhyC Ambassador, Environmental Council Member</p>
+                <p><strong>Recognition:</strong> Service Award & Support Award for sustained contribution and impact</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>Technical Stack</h2>
+        <div class="skills-container">
+            <div class="skill-category">
+                <h3>Programming Languages</h3>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Python</span>
+                        <span>Advanced</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 92%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>C / C++</span>
+                        <span>Proficient</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 85%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>JavaScript / React</span>
+                        <span>Proficient</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 88%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>C# / HTML/CSS</span>
+                        <span>Proficient</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 82%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>Engineering Systems</h3>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Systems Modeling</span>
+                        <span>Advanced</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 90%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Rapid Prototyping</span>
+                        <span>Advanced</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 87%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Research Methodology</span>
+                        <span>Advanced</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 91%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Sustainability Analysis</span>
+                        <span>Proficient</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 84%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>Leadership & Collaboration</h3>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Technical Team Leadership</span>
+                        <span>Advanced</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 94%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Stakeholder Management</span>
+                        <span>Advanced</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 88%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Project Coordination</span>
+                        <span>Advanced</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 90%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="achievements">
+        <h2>Competitions & Recognition</h2>
+        <div class="achievement-grid">
+            <div class="achievement-card">
+                <h4>🌟 IOAA Semi-Finalist</h4>
+                <p>International Olympiad on Astronomy and Astrophysics - Qualified to semifinals</p>
+            </div>
+            <div class="achievement-card">
+                <h4>🔭 NZOAA Participant</h4>
+                <p>New Zealand Olympiad in Astronomy and Astrophysics</p>
+            </div>
+            <div class="achievement-card">
+                <h4>🥈 EPro8 - 2nd Place</h4>
+                <p>Engineering competition showcasing problem-solving and prototyping skills</p>
+            </div>
+            <div class="achievement-card">
+                <h4>💡 Hoobit Ideathon Winner</h4>
+                <p>Innovation challenge - 5th place for creative problem solving</p>
+            </div>
+            <div class="achievement-card">
+                <h4>🏆 Re:Draft Competition Winner</h4>
+                <p>English writing competition - Demonstrated communication excellence</p>
+            </div>
+            <div class="achievement-card">
+                <h4>🎖️ Service Award</h4>
+                <p>Recognition for sustained community leadership and contribution</p>
+            </div>
+            <div class="achievement-card">
+                <h4>🤝 Support Award</h4>
+                <p>Acknowledged for peer support and collaborative impact</p>
+            </div>
+            <div class="achievement-card">
+                <h4>🚀 NASA Space Apps</h4>
+                <p>Team Lead - Research-driven prototyping challenge</p>
+            </div>
+            <div class="achievement-card">
+                <h4>⚙️ UoA Engineering Challenge</h4>
+                <p>Team Leader - Multi-disciplinary engineering competition</p>
+            </div>
+            <div class="achievement-card">
+                <h4>🤖 UC Mechatronics Challenge</h4>
+                <p>Team Leader - Systems integration and robotics</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <h2>Open to Opportunities</h2>
+        <p class="cta-text">
+            Currently seeking scholarships, grants, and opportunities to contribute to aerospace engineering research 
+            and development. Bringing technical capability, proven leadership, and systems-level thinking to 
+            collaborative engineering environments.
+        </p>
+        <div class="social-links" style="justify-content: center;">
+            <a href="https://github.com/thelonMusk" target="_blank" class="social-link">
+                <span class="social-icon">⚡</span>
+                <span>View My Code</span>
+            </a>
+            <a href="mailto:aatiesh99@gmail.com" class="social-link">
+                <span class="social-icon">✉</span>
+                <span>Get In Touch</span>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        // Enhanced starfield animation with depth
+        const canvas = document.getElementById('stars');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const stars = [];
+        const starCount = 300;
+
+        for (let i = 0; i < starCount; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2,
+                speed: Math.random() * 0.8 + 0.2,
+                opacity: Math.random(),
+                depth: Math.random()
+            });
+        }
+
+        function drawStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            stars.forEach(star => {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                
+                const color = star.depth > 0.5 ? '0, 240, 255' : '123, 47, 247';
+                ctx.fillStyle = `rgba(${color}, ${star.opacity})`;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = `rgba(${color}, ${star.opacity})`;
+                ctx.fill();
+
+                star.y += star.speed;
+                star.opacity = Math.sin(Date.now() * 0.001 + star.x) * 0.5 + 0.5;
+
+                if (star.y > canvas.height) {
+                    star.y = 0;
+                    star.x = Math.random() * canvas.width;
+                }
+            });
+
+            requestAnimationFrame(drawStars);
+        }
+
+        drawStars();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
