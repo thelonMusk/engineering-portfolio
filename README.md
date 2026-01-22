@@ -1,8 +1,8 @@
-# 🚀 Aerospace Engineering Portfolio
+#  Aerospace Engineering Portfolio
 
 A cutting-edge, space-themed portfolio showcasing engineering projects, leadership experience, and technical capabilities. Built with modern web technologies and featuring stunning animations inspired by aerospace design.
 
-## ✨ Features
+##  Features
 
 ### Visual Design
 - **Animated Starfield Background** - Dynamic particle system with depth-based coloring (cyan & purple stars)
@@ -23,14 +23,14 @@ A cutting-edge, space-themed portfolio showcasing engineering projects, leadersh
 6. **Competitions & Recognition** - Grid of 10+ achievements and awards
 7. **Call to Action** - Contact links and scholarship opportunities
 
-## 🛠️ Technologies Used
+##  Technologies Used
 
 - **HTML5** - Semantic markup
 - **CSS3** - Advanced animations, gradients, and transitions
 - **Vanilla JavaScript** - Canvas API for starfield, Intersection Observer for scroll effects
 - **Google Fonts** - Orbitron, Rajdhani, Space Mono
 
-## 📋 Setup Instructions
+##  Setup Instructions
 
 ### Quick Start
 1. Download the `index.html` file
@@ -72,7 +72,7 @@ Modify CSS variables in the `:root` selector:
 }
 ```
 
-## 🎨 Design Philosophy
+##  Design Philosophy
 
 This portfolio embraces modern aerospace aesthetics:
 - **Dark Theme** - Reduces eye strain, emphasizes content
@@ -80,44 +80,44 @@ This portfolio embraces modern aerospace aesthetics:
 - **Space Motifs** - Starfield, orbital fonts, mission-control aesthetics
 - **Systems Thinking** - Clean organization reflecting engineering mindset
 
-## 📱 Browser Compatibility
+##  Browser Compatibility
 
 Tested and optimized for:
-- ✅ Chrome/Edge (Chromium) 90+
-- ✅ Firefox 88+
-- ✅ Safari 14+
-- ✅ Mobile browsers (iOS Safari, Chrome Mobile)
+-  Chrome/Edge (Chromium) 90+
+-  Firefox 88+
+-  Safari 14+
+-  Mobile browsers (iOS Safari, Chrome Mobile)
 
-## 🚀 Performance
+##  Performance
 
 - **Lightweight** - Single HTML file, ~40KB uncompressed
 - **Fast Loading** - Fonts loaded asynchronously
 - **Smooth Animations** - 60fps canvas rendering
 - **Optimized Images** - No external images required
 
-## 📄 License
+##  License
 
 This portfolio template is free to use for personal and educational purposes. Feel free to:
-- ✅ Use it as your own portfolio
-- ✅ Modify the design and content
-- ✅ Learn from the code
+- Use it as your own portfolio
+- Modify the design and content
+- Learn from the code
 
 **Please do not:**
-- ❌ Claim the template design as your own creation
-- ❌ Sell or redistribute as a template
+-  Claim the template design as your own creation
+-  Sell or redistribute as a template
 
-## 🤝 Acknowledgments
+##  Acknowledgments
 
 - **Font Families** - Google Fonts (Orbitron, Rajdhani, Space Mono)
 - **Inspiration** - Modern aerospace UI/UX, cyberpunk aesthetics, mission control interfaces
 
-## 📞 Contact
+##  Contact
 
 - **GitHub**: [yourusername](https://github.com/thelonMusk)
 - **Email**: aatiesh99@gmail.com
 
 ---
 
-**Built with passion for aerospace engineering and systems-level thinking** 🛸
+**Built with passion for aerospace engineering and systems-level thinking** 
 
 *Last Updated: January 2026*
