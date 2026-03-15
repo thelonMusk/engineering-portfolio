@@ -3,950 +3,1222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aerospace Engineering Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>Aatiesh — Student Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --primary: #0a0e27;
-            --secondary: #151934;
-            --accent: #00f0ff;
-            --accent-2: #7b2ff7;
-            --text: #8892b0;
-            --bright: #e6f1ff;
-            --glow: rgba(0, 240, 255, 0.5);
+            --black:    #080807;
+            --black2:   #0f0f0d;
+            --black3:   #161613;
+            --gold:     #c9a84c;
+            --gold-lt:  #e8c97a;
+            --gold-dim: #6b5520;
+            --white:    #f5f0e8;
+            --offwhite: #d4cdc0;
+            --gray:     #7a7568;
+            --rule:     rgba(201,168,76,0.18);
         }
 
+        html { scroll-behavior: smooth; font-size: 16px; }
+
         body {
-            font-family: 'Rajdhani', sans-serif;
-            background: var(--primary);
-            color: var(--text);
+            font-family: 'Montserrat', sans-serif;
+            background: var(--black);
+            color: var(--gray);
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        canvas {
+        body::after {
+            content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
+            inset: 0;
+            pointer-events: none;
+            z-index: 500;
+            opacity: 0.028;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 200;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.6rem 5vw;
+            background: rgba(8,8,7,0.95);
+            border-bottom: 1px solid var(--rule);
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--gold);
+            letter-spacing: 0.08em;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.25s;
+        }
+
+        .nav-links a:hover { color: var(--gold); }
+
+        /* HERO */
         .hero {
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 5vw 7rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent 0%, var(--gold) 30%, var(--gold-lt) 50%, var(--gold) 70%, transparent 100%);
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 100%);
+        }
+
+        .hero-corner {
+            position: absolute;
+            top: 4rem; right: 5vw;
+            width: 160px; height: 160px;
+            border-top: 1px solid var(--gold-dim);
+            border-right: 1px solid var(--gold-dim);
+            opacity: 0.4;
+        }
+
+        .hero-corner-bl {
+            position: absolute;
+            bottom: 4rem; left: 5vw;
+            width: 100px; height: 100px;
+            border-bottom: 1px solid var(--gold-dim);
+            border-left: 1px solid var(--gold-dim);
+            opacity: 0.3;
+        }
+
+        .hero-label {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.8rem;
+            opacity: 0;
+            animation: riseIn 0.9s 0.2s cubic-bezier(.22,1,.36,1) forwards;
+        }
+
+        .hero-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(4.5rem, 11vw, 10rem);
+            font-weight: 300;
+            color: var(--white);
+            line-height: 0.9;
+            letter-spacing: -0.01em;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: riseIn 1s 0.4s cubic-bezier(.22,1,.36,1) forwards;
+        }
+
+        .hero-name em {
+            font-style: italic;
+            color: var(--gold-lt);
+        }
+
+        .hero-divider {
+            display: flex;
             align-items: center;
-            justify-content: center;
-            position: relative;
-            padding: 2rem;
-        }
-
-        .hero-content {
-            max-width: 1000px;
-            z-index: 1;
-        }
-
-        h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2.5rem, 8vw, 6rem);
-            font-weight: 900;
-            color: var(--bright);
-            margin-bottom: 1rem;
-            animation: fadeInUp 1s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            text-shadow: 0 0 20px var(--glow);
-        }
-
-        .tagline {
-            font-family: 'Space Mono', monospace;
-            font-size: clamp(1rem, 2.5vw, 1.5rem);
-            color: var(--accent);
+            gap: 1.5rem;
             margin-bottom: 2rem;
-            animation: fadeInUp 1s 0.3s ease backwards;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
+            opacity: 0;
+            animation: riseIn 0.9s 0.6s cubic-bezier(.22,1,.36,1) forwards;
         }
 
-        .intro {
-            font-size: 1.2rem;
+        .hero-divider-line {
+            flex: 1;
+            max-width: 200px;
+            height: 1px;
+            background: var(--gold-dim);
+        }
+
+        .hero-divider-diamond {
+            width: 6px; height: 6px;
+            background: var(--gold);
+            transform: rotate(45deg);
+            flex-shrink: 0;
+        }
+
+        .hero-sub {
+            max-width: 640px;
+            font-size: 0.92rem;
+            font-weight: 300;
             line-height: 1.9;
-            color: var(--text);
-            animation: fadeInUp 1s 0.6s ease backwards;
-            font-weight: 400;
+            color: var(--offwhite);
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: riseIn 0.9s 0.7s cubic-bezier(.22,1,.36,1) forwards;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .hero-meta {
+            display: flex;
+            gap: 3rem;
+            flex-wrap: wrap;
+            align-items: center;
+            opacity: 0;
+            animation: riseIn 0.9s 0.9s cubic-bezier(.22,1,.36,1) forwards;
         }
 
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
+        .hero-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
         }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            40% {
-                transform: translateX(-50%) translateY(-20px);
-            }
-            60% {
-                transform: translateX(-50%) translateY(-10px);
-            }
+        .meta-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: var(--gold-lt);
+            line-height: 1;
         }
 
-        .scroll-indicator::before {
-            content: '';
-            width: 30px;
-            height: 50px;
-            border: 2px solid var(--accent);
-            border-radius: 20px;
-            display: block;
-            position: relative;
-            box-shadow: 0 0 15px var(--glow);
+        .meta-label {
+            font-size: 0.62rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gray);
         }
 
-        .scroll-indicator::after {
-            content: '';
-            width: 6px;
-            height: 10px;
-            background: var(--accent);
-            border-radius: 3px;
-            position: absolute;
-            top: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: scrollDot 2s infinite;
-            box-shadow: 0 0 10px var(--accent);
+        .meta-sep {
+            width: 1px;
+            height: 40px;
+            background: var(--rule);
         }
 
-        @keyframes scrollDot {
-            0% {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-            100% {
-                opacity: 0;
-                transform: translateX(-50%) translateY(20px);
-            }
+        .hero-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 3rem;
+            opacity: 0;
+            animation: riseIn 0.9s 1.1s cubic-bezier(.22,1,.36,1) forwards;
         }
 
-        section {
-            padding: 100px 2rem;
-            max-width: 1200px;
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 1px solid;
+            transition: all 0.3s ease;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--black);
+        }
+        .btn-gold:hover { background: var(--gold-lt); border-color: var(--gold-lt); }
+
+        .btn-ghost {
+            background: transparent;
+            border-color: var(--gold-dim);
+            color: var(--offwhite);
+        }
+        .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+        /* SECTION WRAPPER */
+        .sec-wrap {
+            border-top: 1px solid var(--rule);
+            padding: 7rem 5vw;
+        }
+
+        .sec-inner {
+            max-width: 1320px;
             margin: 0 auto;
         }
 
-        h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 700;
-            color: var(--bright);
-            margin-bottom: 3rem;
-            position: relative;
-            display: inline-block;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--accent-2));
-            animation: expandWidth 0.8s ease forwards;
-            box-shadow: 0 0 10px var(--accent);
-        }
-
-        @keyframes expandWidth {
-            to {
-                width: 100%;
-            }
-        }
-
-        .social-links {
+        .section-header {
             display: flex;
-            gap: 2rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 1.5rem;
+            margin-bottom: 4rem;
         }
 
-        .social-link {
-            display: inline-flex;
+        .section-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--gold);
+            letter-spacing: 0.08em;
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 300;
+            color: var(--white);
+            letter-spacing: -0.01em;
+            line-height: 1;
+        }
+
+        .section-title em { font-style: italic; color: var(--gold-lt); }
+
+        .section-rule {
+            flex: 1;
+            height: 1px;
+            background: var(--rule);
+        }
+
+        /* ACADEMIC */
+        .academic-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border: 1px solid var(--rule);
+        }
+
+        .academic-block {
+            padding: 3rem;
+            border-right: 1px solid var(--rule);
+            border-bottom: 1px solid var(--rule);
+            transition: background 0.3s;
+        }
+        .academic-block:nth-child(2n) { border-right: none; }
+        .academic-block:nth-last-child(-n+2) { border-bottom: none; }
+        .academic-block:hover { background: var(--black3); }
+
+        .academic-label {
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.4rem;
+        }
+
+        .academic-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .endorsement-tag {
+            display: inline-block;
+            padding: 0.22rem 0.8rem;
+            border: 1px solid var(--gold-dim);
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .alist { list-style: none; }
+
+        .alist li {
+            display: flex;
             align-items: center;
             gap: 0.8rem;
-            padding: 0.8rem 1.5rem;
-            background: rgba(0, 240, 255, 0.05);
-            border: 2px solid var(--accent);
-            border-radius: 50px;
-            color: var(--accent);
-            text-decoration: none;
-            font-family: 'Space Mono', monospace;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(201,168,76,0.07);
+            font-size: 0.86rem;
+            color: var(--offwhite);
+            font-weight: 400;
         }
-
-        .social-link::before {
+        .alist li:last-child { border-bottom: none; }
+        .alist li::before {
             content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--accent);
-            transition: left 0.3s ease;
-            z-index: -1;
+            width: 3px; height: 3px;
+            background: var(--gold);
+            border-radius: 50%;
+            flex-shrink: 0;
         }
 
-        .social-link:hover::before {
-            left: 0;
-        }
-
-        .social-link:hover {
-            color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px var(--glow);
-        }
-
-        .social-icon {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .project-grid {
+        /* PROJECTS */
+        .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: 1fr 1fr;
+            border: 1px solid var(--rule);
         }
 
         .project-card {
-            background: var(--secondary);
-            border-radius: 15px;
-            padding: 2rem;
+            padding: 3rem;
+            border-right: 1px solid var(--rule);
+            border-bottom: 1px solid var(--rule);
             position: relative;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(0, 240, 255, 0.2);
+            transition: background 0.3s;
         }
+        .project-card:nth-child(even) { border-right: none; }
+        .project-card:nth-last-child(-n+2) { border-bottom: none; }
+        .project-card:hover { background: var(--black3); }
 
         .project-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
-            opacity: 0;
-            transition: opacity 0.4s;
+            left: 0; top: 0;
+            width: 2px; height: 0;
+            background: var(--gold);
+            transition: height 0.45s cubic-bezier(.22,1,.36,1);
         }
+        .project-card:hover::before { height: 100%; }
 
-        .project-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--accent);
-            box-shadow: 0 20px 40px rgba(0, 240, 255, 0.3);
-        }
-
-        .project-card:hover::before {
-            opacity: 0.08;
+        .project-index {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.8rem;
+            font-style: italic;
+            color: var(--gold-dim);
+            margin-bottom: 1.2rem;
         }
 
         .project-card h3 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--bright);
-            font-size: 1.4rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.55rem;
+            font-weight: 500;
+            color: var(--white);
             margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
-            font-weight: 600;
+            line-height: 1.2;
         }
 
         .project-card p {
-            position: relative;
-            z-index: 1;
-            margin-bottom: 0.8rem;
-            font-size: 1.05rem;
+            font-size: 0.84rem;
+            line-height: 1.8;
+            color: var(--gray);
         }
 
-        .tag {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            background: rgba(0, 240, 255, 0.1);
-            color: var(--accent);
-            border-radius: 20px;
-            font-size: 0.85rem;
-            margin: 0.3rem;
-            position: relative;
-            z-index: 1;
-            font-family: 'Space Mono', monospace;
-            border: 1px solid rgba(0, 240, 255, 0.3);
+        .project-footer {
+            margin-top: 1.8rem;
+            padding-top: 1.4rem;
+            border-top: 1px solid var(--rule);
         }
 
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 3rem;
-            margin-top: 3rem;
+        .project-footer-label {
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.2rem;
         }
 
-        .skill-category h3 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-            font-size: 1.4rem;
-            font-weight: 600;
+        .project-footer p {
+            font-size: 0.84rem;
+            color: var(--offwhite);
         }
 
-        .skill-item {
-            margin-bottom: 1.5rem;
+        /* LEADERSHIP TABLE */
+        .ltable {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid var(--rule);
         }
 
-        .skill-name {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-            color: var(--bright);
+        .ltable thead th {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--gold);
+            border-bottom: 1px solid var(--rule);
+            background: var(--black2);
+        }
+
+        .ltable tbody tr {
+            border-bottom: 1px solid var(--rule);
+            transition: background 0.2s;
+        }
+        .ltable tbody tr:last-child { border-bottom: none; }
+        .ltable tbody tr:hover { background: var(--black3); }
+
+        .ltable td {
+            padding: 1.4rem 1.5rem;
+            vertical-align: top;
+        }
+
+        .t-role {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gold);
+            white-space: nowrap;
+        }
+
+        .t-org {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
             font-weight: 500;
-            font-size: 1.05rem;
+            color: var(--white);
+            margin-bottom: 0.3rem;
         }
 
-        .skill-bar {
-            height: 10px;
-            background: rgba(0, 240, 255, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid rgba(0, 240, 255, 0.2);
+        .t-desc {
+            font-size: 0.82rem;
+            color: var(--gray);
+            line-height: 1.75;
         }
 
-        .skill-progress {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent), var(--accent-2));
-            border-radius: 10px;
-            animation: fillBar 1.5s ease-in-out;
-            transform-origin: left;
-            box-shadow: 0 0 10px var(--glow);
+        .t-meta {
+            font-size: 0.68rem;
+            color: var(--gray);
+            white-space: nowrap;
+            text-align: right;
         }
 
-        @keyframes fillBar {
-            from {
-                transform: scaleX(0);
-            }
-            to {
-                transform: scaleX(1);
-            }
+        .badge {
+            display: inline-block;
+            margin-top: 0.4rem;
+            padding: 0.18rem 0.65rem;
+            background: rgba(201,168,76,0.1);
+            border: 1px solid rgba(201,168,76,0.3);
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
         }
 
-        .timeline {
-            position: relative;
-            margin-top: 3rem;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 3px;
-            background: linear-gradient(180deg, var(--accent), var(--accent-2));
-            box-shadow: 0 0 10px var(--glow);
-        }
-
-        .timeline-item {
-            padding-left: 3rem;
-            margin-bottom: 3rem;
-            position: relative;
-            opacity: 0;
-            animation: slideInLeft 0.8s ease forwards;
-        }
-
-        .timeline-item:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .timeline-item:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        .timeline-item:nth-child(4) {
-            animation-delay: 0.6s;
-        }
-
-        @keyframes slideInLeft {
-            to {
-                opacity: 1;
-            }
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -7px;
-            top: 5px;
-            width: 14px;
-            height: 14px;
-            background: var(--accent);
-            border-radius: 50%;
-            box-shadow: 0 0 20px var(--accent);
-            border: 2px solid var(--primary);
-        }
-
-        .timeline-item h3 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--bright);
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .timeline-item .date {
-            color: var(--accent);
-            font-size: 0.95rem;
-            margin-bottom: 0.8rem;
-            font-family: 'Space Mono', monospace;
-        }
-
-        .achievement-grid {
+        /* SERVICE STATS */
+        .service-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 3rem;
+            grid-template-columns: 1fr 1fr 1fr;
+            border: 1px solid var(--rule);
         }
 
-        .achievement-card {
-            background: linear-gradient(135deg, var(--secondary) 0%, rgba(21, 25, 52, 0.5) 100%);
-            padding: 1.8rem;
-            border-radius: 12px;
-            border-left: 4px solid var(--accent);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0, 240, 255, 0.2);
+        .service-card {
+            padding: 3rem;
+            border-right: 1px solid var(--rule);
+            transition: background 0.3s;
         }
+        .service-card:last-child { border-right: none; }
+        .service-card:hover { background: var(--black3); }
 
-        .achievement-card:hover {
-            transform: translateX(10px);
-            box-shadow: -5px 5px 20px rgba(0, 240, 255, 0.3);
-            border-color: var(--accent);
-        }
-
-        .achievement-card h4 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--bright);
+        .service-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 300;
+            color: var(--gold-lt);
+            line-height: 1;
             margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-            font-weight: 600;
         }
 
-        .achievement-card p {
-            font-size: 1.05rem;
-        }
-
-        .academic-section {
-            background: var(--secondary);
-            border-radius: 15px;
-            padding: 2.5rem;
-            margin-top: 3rem;
-            border: 1px solid rgba(0, 240, 255, 0.2);
-        }
-
-        .academic-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .academic-item h4 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--accent);
+        .service-label {
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gray);
             margin-bottom: 1rem;
-            font-size: 1.2rem;
-            font-weight: 600;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--rule);
         }
 
-        .academic-item ul {
-            list-style: none;
-            padding-left: 0;
+        .service-desc {
+            font-size: 0.82rem;
+            color: var(--gray);
+            line-height: 1.75;
         }
 
-        .academic-item li {
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-            font-size: 1.05rem;
+        /* ACHIEVEMENTS */
+        .ach-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
         }
 
-        .academic-item li::before {
-            content: '▸';
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-            font-size: 1.2rem;
+        .ach-group-title {
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--rule);
+            margin-bottom: 0;
         }
 
+        .ach-row {
+            display: grid;
+            grid-template-columns: 1px 1fr;
+            gap: 1.5rem;
+            padding: 1.4rem 0;
+            border-bottom: 1px solid var(--rule);
+            align-items: start;
+        }
+        .ach-row:last-child { border-bottom: none; }
+
+        .ach-line {
+            background: var(--gold-dim);
+            align-self: stretch;
+            min-height: 20px;
+        }
+
+        .ach-content h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: var(--white);
+            margin-bottom: 0.25rem;
+        }
+
+        .ach-content p {
+            font-size: 0.82rem;
+            color: var(--gray);
+            line-height: 1.65;
+        }
+
+        /* AWARDS GRID */
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border: 1px solid var(--rule);
+            margin-top: 4rem;
+            background: var(--rule);
+            gap: 1px;
+        }
+
+        .award-cell {
+            background: var(--black);
+            padding: 2rem;
+            transition: background 0.3s;
+        }
+        .award-cell:hover { background: var(--black3); }
+
+        .award-type {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.6rem;
+        }
+
+        .award-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .award-cell p {
+            font-size: 0.8rem;
+            color: var(--gray);
+            line-height: 1.65;
+        }
+
+        /* CTA */
         .cta {
+            border-top: 1px solid var(--rule);
+            padding: 8rem 5vw;
             text-align: center;
-            padding: 80px 2rem;
+            position: relative;
+            overflow: hidden;
         }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 700px; height: 400px;
+            background: radial-gradient(ellipse at bottom, rgba(201,168,76,0.05) 0%, transparent 70%);
+        }
+
+        .cta-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+        .cta-orn-line { width: 80px; height: 1px; background: var(--gold-dim); }
+        .cta-orn-diamond { width: 5px; height: 5px; background: var(--gold); transform: rotate(45deg); }
 
         .cta h2 {
-            margin-bottom: 2rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5vw, 5rem);
+            font-weight: 300;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            position: relative; z-index: 1;
+        }
+        .cta h2 em { font-style: italic; color: var(--gold-lt); }
+
+        .cta p {
+            max-width: 580px;
+            margin: 0 auto 3rem;
+            font-size: 0.9rem;
+            line-height: 1.9;
+            color: var(--gray);
+            font-weight: 300;
+            position: relative; z-index: 1;
         }
 
-        .cta-text {
-            color: var(--text);
-            margin-bottom: 2rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            font-size: 1.1rem;
-            line-height: 1.8;
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            position: relative; z-index: 1;
         }
 
-        .in-view {
-            animation: fadeInUp 1s ease;
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--rule);
+            padding: 2rem 5vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        @media (max-width: 768px) {
-            section {
-                padding: 60px 1.5rem;
-            }
-            
-            .timeline::before {
-                left: 10px;
-            }
-            
-            .timeline-item {
-                padding-left: 2.5rem;
-            }
+        footer span {
+            font-size: 0.62rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold-dim);
+        }
 
-            .social-links {
-                justify-content: center;
-            }
+        /* ANIMATIONS */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.85s cubic-bezier(.22,1,.36,1),
+                        transform 0.85s cubic-bezier(.22,1,.36,1);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .d1 { transition-delay: 0.1s; }
+        .d2 { transition-delay: 0.2s; }
+        .d3 { transition-delay: 0.3s; }
+
+        @keyframes riseIn {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 960px) {
+            nav { padding: 1.4rem 6vw; }
+            .nav-links { display: none; }
+            .hero { padding: 0 6vw 5rem; }
+            .sec-wrap { padding: 5rem 6vw; }
+            .academic-grid { grid-template-columns: 1fr; }
+            .academic-block { border-right: none !important; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .project-card { border-right: none !important; }
+            .project-card:nth-last-child(-n+2) { border-bottom: 1px solid var(--rule); }
+            .project-card:last-child { border-bottom: none !important; }
+            .ach-layout { grid-template-columns: 1fr; gap: 3rem; }
+            .awards-grid { grid-template-columns: 1fr 1fr; }
+            .service-grid { grid-template-columns: 1fr; }
+            .service-card { border-right: none; border-bottom: 1px solid var(--rule); }
+            .service-card:last-child { border-bottom: none; }
+            .ltable thead { display: none; }
+            .ltable tbody tr { display: grid; padding: 1.5rem; border-bottom: 1px solid var(--rule); }
+            .ltable td { padding: 0.2rem 0; }
+            .t-meta { text-align: left; }
+            footer { flex-direction: column; gap: 0.5rem; text-align: center; }
         }
     </style>
 </head>
 <body>
-    <canvas id="stars"></canvas>
 
-    <div class="hero">
-        <div class="hero-content">
-            <h1>Systems Engineer</h1>
-            <p class="tagline">Aerospace • Research • Innovation</p>
-            <p class="intro">
-                A Year 13 student approaching aerospace engineering as a systems problem through research-driven competitions, 
-                technical leadership, and independent development. Translating theory into working outcomes at the intersection 
-                of physics, computation, and sustainability.
-            </p>
-            <div class="social-links">
-                <a href="https://github.com/thelonMusk" target="_blank" class="social-link">
-                    <span class="social-icon">⚡</span>
-                    <span>GitHub</span>
-                </a>
-                <a href="mailto:aatiesh99@gmail.com" class="social-link">
-                    <span class="social-icon">✉</span>
-                    <span>Contact</span>
-                </a>
-            </div>
-        </div>
-        <div class="scroll-indicator"></div>
+<nav>
+    <a href="#home" class="nav-name">Aatiesh</a>
+    <ul class="nav-links">
+        <li><a href="#academic">Academic</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#leadership">Leadership</a></li>
+        <li><a href="#recognition">Recognition</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-corner"></div>
+    <div class="hero-corner-bl"></div>
+
+    <p class="hero-label">Student Portfolio &nbsp;&middot;&nbsp; Year 13 &nbsp;&middot;&nbsp; Auckland, New Zealand</p>
+
+    <h1 class="hero-name">
+        Aatiesh<br>
+        <em>&mdash; driven by curiosity,</em><br>
+        defined by action.
+    </h1>
+
+    <div class="hero-divider">
+        <div class="hero-divider-line"></div>
+        <div class="hero-divider-diamond"></div>
     </div>
 
-    <section id="academic">
-        <h2>Academic Profile</h2>
-        <div class="academic-section">
-            <div class="academic-grid">
-                <div class="academic-item">
-                    <h4>NCEA Level 3 (In Progress)</h4>
-                    <ul>
-                        <li>Physics</li>
-                        <li>Calculus</li>
-                        <li>Chemistry</li>
-                        <li>Computer Science</li>
-                        <li>Product Design</li>
-                    </ul>
-                </div>
-                <div class="academic-item">
-                    <h4>NCEA Level 2 Results</h4>
-                    <ul>
-                        <li>40 Excellence credits</li>
-                        <li>9 Merit credits</li>
-                        <li>18 Achieved credits</li>
-                        <li>Strong external performance</li>
-                    </ul>
-                </div>
+    <p class="hero-sub">
+        A Year 13 student approaching engineering, science, and leadership as interconnected disciplines.
+        Through research competitions, founding clubs, captaining teams, and sustained community service,
+        the aim is always the same: to build things that matter and lead people toward a shared goal.
+    </p>
+
+    <div class="hero-meta">
+        <div class="hero-meta-item">
+            <span class="meta-num">250+</span>
+            <span class="meta-label">Volunteer Hours</span>
+        </div>
+        <div class="meta-sep"></div>
+        <div class="hero-meta-item">
+            <span class="meta-num">8+</span>
+            <span class="meta-label">Leadership Roles</span>
+        </div>
+        <div class="meta-sep"></div>
+        <div class="hero-meta-item">
+            <span class="meta-num">3 yrs</span>
+            <span class="meta-label">Air Cadet</span>
+        </div>
+        <div class="meta-sep"></div>
+        <div class="hero-meta-item">
+            <span class="meta-num">L1 &amp; L2</span>
+            <span class="meta-label">Excellence Endorsed</span>
+        </div>
+    </div>
+
+    <div class="hero-links">
+        <a href="mailto:aatiesh99@gmail.com" class="btn btn-gold">Get In Touch</a>
+        <a href="https://github.com/thelonMusk" target="_blank" class="btn btn-ghost">GitHub</a>
+    </div>
+</section>
+
+<!-- ACADEMIC -->
+<div class="sec-wrap" id="academic">
+    <div class="sec-inner">
+        <div class="section-header reveal">
+            <span class="section-num">i.</span>
+            <h2 class="section-title">Academic <em>Profile</em></h2>
+            <div class="section-rule"></div>
+        </div>
+
+        <div class="academic-grid reveal d1">
+            <div class="academic-block">
+                <div class="academic-label">Completed</div>
+                <div class="academic-title">NCEA Level 1</div>
+                <div class="endorsement-tag">Excellence Endorsed</div>
+                <ul class="alist">
+                    <li>Top results across all core subjects</li>
+                    <li>Strong foundation in Mathematics and Sciences</li>
+                    <li>Excellence in written and analytical tasks</li>
+                </ul>
+            </div>
+
+            <div class="academic-block">
+                <div class="academic-label">Completed</div>
+                <div class="academic-title">NCEA Level 2</div>
+                <div class="endorsement-tag">Excellence Endorsed</div>
+                <ul class="alist">
+                    <li>40 Excellence credits</li>
+                    <li>9 Merit credits</li>
+                    <li>18 Achieved credits</li>
+                    <li>Strong external examination performance</li>
+                </ul>
+            </div>
+
+            <div class="academic-block">
+                <div class="academic-label">In Progress</div>
+                <div class="academic-title">NCEA Level 3</div>
+                <br>
+                <ul class="alist">
+                    <li>Physics</li>
+                    <li>Calculus</li>
+                    <li>Chemistry</li>
+                    <li>Computer Science</li>
+                    <li>Product Design</li>
+                </ul>
+            </div>
+
+            <div class="academic-block">
+                <div class="academic-label">Appointed Roles</div>
+                <div class="academic-title">Ambassadorships</div>
+                <br>
+                <ul class="alist">
+                    <li>SVA Ambassador</li>
+                    <li>IPhyC &mdash; International Physics Ambassador</li>
+                    <li>Kea Kainga House Captain</li>
+                    <li>Executive Council Member</li>
+                </ul>
             </div>
         </div>
-    </section>
+    </div>
+</div>
 
-    <section id="projects">
-        <h2>Engineering Projects</h2>
-        <div class="project-grid">
+<!-- PROJECTS -->
+<div class="sec-wrap" id="projects">
+    <div class="sec-inner">
+        <div class="section-header reveal">
+            <span class="section-num">ii.</span>
+            <h2 class="section-title">Engineering <em>Projects</em></h2>
+            <div class="section-rule"></div>
+        </div>
+
+        <div class="projects-grid reveal d1">
             <div class="project-card">
+                <div class="project-index">Project 01</div>
                 <h3>Low-Emission Jet Engine R&D</h3>
-                <p>Independent research into reduced-emission propulsion concepts, analyzing efficiency, materials constraints, and environmental impact through systems-level trade-off analysis.</p>
-                <p><strong>Status:</strong> Active research and development phase</p>
-                <div>
-                    <span class="tag">Propulsion</span>
-                    <span class="tag">Sustainability</span>
-                    <span class="tag">Systems Analysis</span>
+                <p>Independent research into reduced-emission propulsion concepts. Analysing efficiency trade-offs, materials constraints, and environmental impact through a systems-level analytical approach &mdash; connecting classroom physics with real engineering problems.</p>
+                <div class="project-footer">
+                    <div class="project-footer-label">Status</div>
+                    <p>Active research and development &mdash; ongoing</p>
                 </div>
             </div>
 
             <div class="project-card">
+                <div class="project-index">Project 02</div>
                 <h3>NASA Space Apps Challenge</h3>
-                <p>Led multidisciplinary team of 4-6 members through research-based problem definition and solution design.</p>
-                <p><strong>Outcome:</strong> Delivered functional prototype demonstrating systems integration under strict time constraints.</p>
-                <div>
-                    <span class="tag">Team Leadership</span>
-                    <span class="tag">Rapid Prototyping</span>
-                    <span class="tag">Research-Based</span>
+                <p>Led a multidisciplinary team of 4 to 6 members through a global research and prototyping challenge. Responsible for defining the problem space, structuring the team's workload, and delivering a fully functional prototype under strict time constraints.</p>
+                <div class="project-footer">
+                    <div class="project-footer-label">Outcome</div>
+                    <p>Working prototype demonstrating full systems integration</p>
                 </div>
             </div>
 
             <div class="project-card">
+                <div class="project-index">Project 03</div>
                 <h3>Computer Vision Hand Tracker</h3>
-                <p>Developed real-time hand tracking system with emotion inference capabilities, integrating software logic with live input processing.</p>
-                <p><strong>Tech:</strong> Python, computer vision algorithms, real-time processing optimization</p>
-                <div>
-                    <span class="tag">Python</span>
-                    <span class="tag">Computer Vision</span>
+                <p>Built a real-time hand tracking system with emotion inference capabilities from scratch in Python. Integrated computer vision algorithms with live input processing and optimised the pipeline for consistent low-latency performance.</p>
+                <div class="project-footer">
+                    <div class="project-footer-label">Technologies</div>
+                    <p>Python, computer vision, real-time processing pipelines</p>
                 </div>
             </div>
 
             <div class="project-card">
+                <div class="project-index">Project 04</div>
                 <h3>Multi-Institution Engineering Challenges</h3>
-                <p>Team leader for University of Auckland Engineering Challenge and University of Canterbury Mechatronics Challenge.</p>
-                <p><strong>Focus:</strong> Research-driven problem solving, prototype development, cross-functional system integration</p>
-                <div>
-                    <span class="tag">Mechatronics</span>
-                    <span class="tag">Team Leadership</span>
-                    <span class="tag">Prototyping</span>
+                <p>Team Leader for both the University of Auckland Engineering Challenge and the University of Canterbury Mechatronics Challenge. Led research-driven design phases, prototype development, and cross-functional system integration under competitive conditions.</p>
+                <div class="project-footer">
+                    <div class="project-footer-label">Scope</div>
+                    <p>Mechatronics, embedded systems, and robotics across two institutions</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</div>
 
-    <section id="leadership">
-        <h2>Leadership Impact</h2>
-        <div class="timeline">
-            <div class="timeline-item">
-                <h3>Space Club - Founder & Leader</h3>
-                <p class="date">Current</p>
-                <p><strong>Problem:</strong> No sustained platform for student-driven aerospace research and experimentation.</p>
-                <p><strong>Action:</strong> Founded and structured club around practical projects, research methodologies, and collaborative problem-solving.</p>
-                <p><strong>Outcome:</strong> Grew to 30+ active members with ongoing technical projects and sustained engagement.</p>
+<!-- LEADERSHIP -->
+<div class="sec-wrap" id="leadership">
+    <div class="sec-inner">
+        <div class="section-header reveal">
+            <span class="section-num">iii.</span>
+            <h2 class="section-title">Leadership <em>&amp; Service</em></h2>
+            <div class="section-rule"></div>
+        </div>
+
+        <div class="reveal d1">
+            <table class="ltable">
+                <thead>
+                    <tr>
+                        <th style="width:160px;">Role</th>
+                        <th style="width:220px;">Organisation</th>
+                        <th>Contribution &amp; Impact</th>
+                        <th style="width:130px; text-align:right;">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><div class="t-role">Founder &amp; Leader</div></td>
+                        <td><div class="t-org">Space Club</div></td>
+                        <td><div class="t-desc">Identified a gap in co-curricular offering and founded a club built around practical aerospace research. Structured it around real projects and sustained technical deliverables. Grew membership to 30+ active students.</div></td>
+                        <td><div class="t-meta">Current<br><span class="badge">30+ Members</span></div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="t-role">Leader</div></td>
+                        <td><div class="t-org">SPECtrum STEM Club</div></td>
+                        <td><div class="t-desc">Leading the largest STEM club in school. Directing student-led engineering and science projects with a focus on practical outcomes, systems thinking, and measurable technical deliverables that extend beyond the standard curriculum.</div></td>
+                        <td><div class="t-meta">Current<br><span class="badge">50+ Members</span></div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="t-role">President</div></td>
+                        <td><div class="t-org">Science Club</div></td>
+                        <td><div class="t-desc">Overseeing school-wide science engagement. Coordinating research activities, organising events, and building a culture of scientific curiosity across all year groups.</div></td>
+                        <td><div class="t-meta">Current</div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="t-role">Team Leader</div></td>
+                        <td><div class="t-org">EPro8 Team</div></td>
+                        <td><div class="t-desc">Leading the school's competitive engineering team through EPro8 challenges. Managing strategy, coordination, and technical execution under pressure. Team placed 2nd in competition, demonstrating effective leadership in a high-stakes environment.</div></td>
+                        <td><div class="t-meta">Current<br><span class="badge">2nd Place</span></div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="t-role">Team Leader</div></td>
+                        <td><div class="t-org">Robotics Team</div></td>
+                        <td><div class="t-desc">Directing the school robotics team with a focus on embedded systems, iterative engineering design, and competitive performance. Building a structured problem-solving culture within the team.</div></td>
+                        <td><div class="t-meta">Current</div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="t-role">Team Principal</div></td>
+                        <td><div class="t-org">STEM Racing Team</div></td>
+                        <td><div class="t-desc">Founded the school's first-ever STEM Racing team from the ground up. Responsible for the full programme: technical design, team selection, sponsorship discussions, and race-day operations. A new initiative bridging engineering and motorsport.</div></td>
+                        <td><div class="t-meta">Newly Founded</div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="t-role">House Captain</div></td>
+                        <td><div class="t-org">Kea Kainga &mdash; Student Leader</div></td>
+                        <td><div class="t-desc">Elected house captain with responsibilities covering school culture, student wellbeing, event planning, and cross-house representation. A pastoral and organisational leadership role operating at school-wide level.</div></td>
+                        <td><div class="t-meta">Current</div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="t-role">Member</div></td>
+                        <td><div class="t-org">Executive Council</div></td>
+                        <td><div class="t-desc">Contributing to school-wide governance, policy development, and strategic planning as a student representative on the Executive Council. Formally involved in institutional decision-making at the highest student level.</div></td>
+                        <td><div class="t-meta">Current</div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="t-role">Service Director</div></td>
+                        <td><div class="t-org">Interact Club</div></td>
+                        <td><div class="t-desc">Managing stakeholder coordination, resource allocation, and long-term community service initiatives across two years. Accumulated over 250 hours of documented volunteer service through sustained programme management.</div></td>
+                        <td><div class="t-meta">2 Years<br><span class="badge">250+ hrs</span></div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="t-role">Air Cadet</div></td>
+                        <td><div class="t-org">New Zealand Air Cadets</div></td>
+                        <td><div class="t-desc">Three years of active participation in the NZAC programme. Developing aviation knowledge, discipline, and leadership through structured training &mdash; maintained consistently alongside a full academic and co-curricular schedule.</div></td>
+                        <td><div class="t-meta">3 Years</div></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- SERVICE STATS -->
+<div class="sec-wrap">
+    <div class="sec-inner">
+        <div class="service-grid reveal">
+            <div class="service-card">
+                <div class="service-num">250+</div>
+                <div class="service-label">Volunteer Hours</div>
+                <div class="service-desc">Documented service hours logged through Interact Club community initiatives, school programmes, and independent volunteering over two years of sustained contribution.</div>
             </div>
-
-            <div class="timeline-item">
-                <h3>Spectrum STEM Club - Leader</h3>
-                <p class="date">Current</p>
-                <p><strong>Problem:</strong> Limited opportunities for hands-on engineering exploration outside curriculum.</p>
-                <p><strong>Action:</strong> Led student-driven engineering projects emphasizing practical development and systems thinking.</p>
-                <p><strong>Outcome:</strong> Established continuous project pipeline with measurable technical deliverables.</p>
+            <div class="service-card">
+                <div class="service-num">50+</div>
+                <div class="service-label">SPECtrum Members</div>
+                <div class="service-desc">The largest STEM club in school, grown under active leadership into a central hub for engineering and science co-curricular activity with ongoing project pipelines.</div>
             </div>
-
-            <div class="timeline-item">
-                <h3>Interact Club - Service Director</h3>
-                <p class="date">2 Years</p>
-                <p><strong>Action:</strong> Managed stakeholder coordination, resource allocation, and sustained long-term service initiatives.</p>
-                <p><strong>Outcome:</strong> Developed organizational governance experience directly applicable to engineering project management.</p>
-            </div>
-
-            <div class="timeline-item">
-                <h3>Student Leadership & Governance</h3>
-                <p class="date">2 Years</p>
-                <p><strong>Roles:</strong> Student Leader, Executive Committee Member, IPhyC Ambassador, Environmental Council Member</p>
-                <p><strong>Recognition:</strong> Service Award & Support Award for sustained contribution and impact</p>
+            <div class="service-card">
+                <div class="service-num">3 yrs</div>
+                <div class="service-label">Air Cadet Service</div>
+                <div class="service-desc">Three continuous years in the New Zealand Air Cadet programme, combining aviation training, discipline, and leadership development alongside full academic commitments.</div>
             </div>
         </div>
-    </section>
+    </div>
+</div>
 
-    <section id="skills">
-        <h2>Technical Stack</h2>
-        <div class="skills-container">
-            <div class="skill-category">
-                <h3>Programming Languages</h3>
-                <div class="skill-item">
-                    <div class="skill-name">
-                        <span>Python</span>
-                        <span>Advanced</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 92%"></div>
-                    </div>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-name">
-                        <span>C / C++</span>
-                        <span>Proficient</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 85%"></div>
+<!-- RECOGNITION -->
+<div class="sec-wrap" id="recognition">
+    <div class="sec-inner">
+        <div class="section-header reveal">
+            <span class="section-num">iv.</span>
+            <h2 class="section-title">Honours <em>&amp; Recognition</em></h2>
+            <div class="section-rule"></div>
+        </div>
+
+        <div class="ach-layout reveal d1">
+            <div>
+                <div class="ach-group-title">Competitions &amp; Olympiads</div>
+                <div class="ach-row">
+                    <div class="ach-line"></div>
+                    <div class="ach-content">
+                        <h4>IOAA Semi-Finalist</h4>
+                        <p>International Olympiad on Astronomy and Astrophysics &mdash; qualified to the semi-finals, representing a high level of achievement in astrophysics and observational astronomy.</p>
                     </div>
                 </div>
-                <div class="skill-item">
-                    <div class="skill-name">
-                        <span>JavaScript / React</span>
-                        <span>Proficient</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 88%"></div>
+                <div class="ach-row">
+                    <div class="ach-line"></div>
+                    <div class="ach-content">
+                        <h4>NZOAA Participant</h4>
+                        <p>New Zealand Olympiad in Astronomy and Astrophysics &mdash; selected to participate in the national-level olympiad programme.</p>
                     </div>
                 </div>
-                <div class="skill-item">
-                    <div class="skill-name">
-                        <span>C# / HTML/CSS</span>
-                        <span>Proficient</span>
+                <div class="ach-row">
+                    <div class="ach-line"></div>
+                    <div class="ach-content">
+                        <h4>EPro8 &mdash; 2nd Place</h4>
+                        <p>Competitive engineering challenge recognising rapid problem-solving, prototyping, and team coordination under timed, high-pressure conditions.</p>
                     </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 82%"></div>
+                </div>
+                <div class="ach-row">
+                    <div class="ach-line"></div>
+                    <div class="ach-content">
+                        <h4>Hackclub Campfire &mdash; Organiser's Pick</h4>
+                        <p>Selected by organisers for a creative and technically original submission &mdash; an independently developed game project.</p>
+                    </div>
+                </div>
+                <div class="ach-row">
+                    <div class="ach-line"></div>
+                    <div class="ach-content">
+                        <h4>Re:Draft &mdash; Competition Winner</h4>
+                        <p>English writing competition recognising communication excellence and the ability to craft well-structured, persuasive written work.</p>
+                    </div>
+                </div>
+                <div class="ach-row">
+                    <div class="ach-line"></div>
+                    <div class="ach-content">
+                        <h4>NASA Space Apps &mdash; Team Lead</h4>
+                        <p>Led the school team through a global NASA hackathon, producing a research-driven prototype addressing a real-world space challenge.</p>
                     </div>
                 </div>
             </div>
 
-            <div class="skill-category">
-                <h3>Engineering Systems</h3>
-                <div class="skill-item">
-                    <div class="skill-name">
-                        <span>Systems Modeling</span>
-                        <span>Advanced</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 90%"></div>
+            <div>
+                <div class="ach-group-title">University Engineering Challenges</div>
+                <div class="ach-row">
+                    <div class="ach-line"></div>
+                    <div class="ach-content">
+                        <h4>University of Auckland &mdash; Engineering Challenge</h4>
+                        <p>Team leader in the multi-disciplinary university engineering competition, coordinating the full design, build, and testing cycle.</p>
                     </div>
                 </div>
-                <div class="skill-item">
-                    <div class="skill-name">
-                        <span>Rapid Prototyping</span>
-                        <span>Advanced</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 87%"></div>
+                <div class="ach-row">
+                    <div class="ach-line"></div>
+                    <div class="ach-content">
+                        <h4>University of Canterbury &mdash; Mechatronics Challenge</h4>
+                        <p>Team leader in the Canterbury mechatronics competition, focused on systems integration, robotics, and embedded control under competitive conditions.</p>
                     </div>
                 </div>
-                <div class="skill-item">
-                    <div class="skill-name">
-                        <span>Research Methodology</span>
-                        <span>Advanced</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 91%"></div>
+                <div class="ach-row">
+                    <div class="ach-line"></div>
+                    <div class="ach-content">
+                        <h4>NCEA Level 1 &mdash; Excellence Endorsed</h4>
+                        <p>Achieved Excellence Endorsement at Level 1, demonstrating consistently high performance across all assessed subjects at the national qualification level.</p>
                     </div>
                 </div>
-                <div class="skill-item">
-                    <div class="skill-name">
-                        <span>Sustainability Analysis</span>
-                        <span>Proficient</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 84%"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <h3>Leadership & Collaboration</h3>
-                <div class="skill-item">
-                    <div class="skill-name">
-                        <span>Technical Team Leadership</span>
-                        <span>Advanced</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 94%"></div>
-                    </div>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-name">
-                        <span>Stakeholder Management</span>
-                        <span>Advanced</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 88%"></div>
-                    </div>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-name">
-                        <span>Project Coordination</span>
-                        <span>Advanced</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 90%"></div>
+                <div class="ach-row">
+                    <div class="ach-line"></div>
+                    <div class="ach-content">
+                        <h4>NCEA Level 2 &mdash; Excellence Endorsed</h4>
+                        <p>Achieved Excellence Endorsement at Level 2 with 40 Excellence credits, maintaining a strong record of academic distinction across two levels.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <section id="achievements">
-        <h2>Competitions & Recognition</h2>
-        <div class="achievement-grid">
-            <div class="achievement-card">
-                <h4>🌟 IOAA Semi-Finalist</h4>
-                <p>International Olympiad on Astronomy and Astrophysics - Qualified to semifinals</p>
+        <!-- School Awards -->
+        <div class="awards-grid reveal d2">
+            <div class="award-cell">
+                <div class="award-type">School Award</div>
+                <div class="award-title">Harakeke Award</div>
+                <p>Awarded for supporting the school in multidisciplinary ways &mdash; recognising contributions spanning academics, leadership, and community engagement.</p>
             </div>
-            <div class="achievement-card">
-                <h4>🔭 NZOAA Participant</h4>
-                <p>New Zealand Olympiad in Astronomy and Astrophysics</p>
+            <div class="award-cell">
+                <div class="award-type">School Award</div>
+                <div class="award-title">Waka Award</div>
+                <p>Awarded for contributing to the school community across many areas, demonstrating sustained commitment to collective progress and school culture.</p>
             </div>
-            <div class="achievement-card">
-                <h4>🥈 EPro8 - 2nd Place</h4>
-                <p>Engineering competition showcasing problem-solving and prototyping skills</p>
+            <div class="award-cell">
+                <div class="award-type">School Award</div>
+                <div class="award-title">Service Award</div>
+                <p>Recognised for sustained community leadership and meaningful contribution to school and wider community service initiatives over an extended period.</p>
             </div>
-            <div class="achievement-card">
-                <h4>💡 Hoobit Ideathon Winner</h4>
-                <p>Innovation challenge - 5th place for creative problem solving</p>
+            <div class="award-cell">
+                <div class="award-type">School Award</div>
+                <div class="award-title">Support Award</div>
+                <p>Acknowledged for consistent peer support and collaborative contribution, making a positive impact on those around them within the school environment.</p>
             </div>
-            <div class="achievement-card">
-                <h4>🏆 Re:Draft Competition Winner</h4>
-                <p>English writing competition - Demonstrated communication excellence</p>
+            <div class="award-cell">
+                <div class="award-type">Ambassadorship</div>
+                <div class="award-title">SVA Ambassador</div>
+                <p>Appointed as an SVA Ambassador, representing student volunteering values and promoting community engagement and civic responsibility at school level.</p>
             </div>
-            <div class="achievement-card">
-                <h4>🎖️ Service Award</h4>
-                <p>Recognition for sustained community leadership and contribution</p>
-            </div>
-            <div class="achievement-card">
-                <h4>🤝 Support Award</h4>
-                <p>Acknowledged for peer support and collaborative impact</p>
-            </div>
-            <div class="achievement-card">
-                <h4>🚀 NASA Space Apps</h4>
-                <p>Team Lead - Research-driven prototyping challenge</p>
-            </div>
-            <div class="achievement-card">
-                <h4>⚙️ UoA Engineering Challenge</h4>
-                <p>Team Leader - Multi-disciplinary engineering competition</p>
-            </div>
-            <div class="achievement-card">
-                <h4>🤖 UC Mechatronics Challenge</h4>
-                <p>Team Leader - Systems integration and robotics</p>
+            <div class="award-cell">
+                <div class="award-type">Ambassadorship</div>
+                <div class="award-title">IPhyC Ambassador</div>
+                <p>International Physics Ambassador &mdash; representing the school in the global physics community and encouraging scientific engagement among students.</p>
             </div>
         </div>
-    </section>
+    </div>
+</div>
 
-    <section class="cta">
-        <h2>Open to Opportunities</h2>
-        <p class="cta-text">
-            Currently seeking scholarships, grants, and opportunities to contribute to aerospace engineering research 
-            and development. Bringing technical capability, proven leadership, and systems-level thinking to 
-            collaborative engineering environments.
-        </p>
-        <div class="social-links" style="justify-content: center;">
-            <a href="https://github.com/thelonMusk" target="_blank" class="social-link">
-                <span class="social-icon">⚡</span>
-                <span>View My Code</span>
-            </a>
-            <a href="mailto:aatiesh99@gmail.com" class="social-link">
-                <span class="social-icon">✉</span>
-                <span>Get In Touch</span>
-            </a>
-        </div>
-    </section>
+<!-- CTA -->
+<div class="cta" id="contact">
+    <div class="cta-ornament">
+        <div class="cta-orn-line"></div>
+        <div class="cta-orn-diamond"></div>
+        <div class="cta-orn-line"></div>
+    </div>
+    <h2 class="reveal">Open to <em>Opportunities</em></h2>
+    <p class="reveal d1">
+        Currently seeking scholarships, grants, mentorship, and opportunities to contribute to 
+        aerospace engineering and scientific research. Available for conversations with universities, 
+        research organisations, and industry professionals.
+    </p>
+    <div class="cta-buttons reveal d2">
+        <a href="mailto:aatiesh99@gmail.com" class="btn btn-gold">aatiesh99@gmail.com</a>
+        <a href="https://github.com/thelonMusk" target="_blank" class="btn btn-ghost">GitHub</a>
+    </div>
+</div>
 
-    <script>
-        // Enhanced starfield animation with depth
-        const canvas = document.getElementById('stars');
-        const ctx = canvas.getContext('2d');
-        
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+<footer>
+    <span>Aatiesh &mdash; Student Portfolio &nbsp;&middot;&nbsp; 2025</span>
+    <span>Auckland, New Zealand</span>
+</footer>
 
-        const stars = [];
-        const starCount = 300;
-
-        for (let i = 0; i < starCount; i++) {
-            stars.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                radius: Math.random() * 2,
-                speed: Math.random() * 0.8 + 0.2,
-                opacity: Math.random(),
-                depth: Math.random()
-            });
-        }
-
-        function drawStars() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            stars.forEach(star => {
-                ctx.beginPath();
-                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-                
-                const color = star.depth > 0.5 ? '0, 240, 255' : '123, 47, 247';
-                ctx.fillStyle = `rgba(${color}, ${star.opacity})`;
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = `rgba(${color}, ${star.opacity})`;
-                ctx.fill();
-
-                star.y += star.speed;
-                star.opacity = Math.sin(Date.now() * 0.001 + star.x) * 0.5 + 0.5;
-
-                if (star.y > canvas.height) {
-                    star.y = 0;
-                    star.x = Math.random() * canvas.width;
-                }
-            });
-
-            requestAnimationFrame(drawStars);
-        }
-
-        drawStars();
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+<script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
         });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
 
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('in-view');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            const target = document.querySelector(a.getAttribute('href'));
+            if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
         });
+    });
+</script>
 
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-    </script>
 </body>
 </html>
