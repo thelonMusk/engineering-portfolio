@@ -113,7 +113,7 @@ This portfolio template is free to use for personal and educational purposes. Fe
 
 ##  Contact
 
-- **GitHub**: [yourusername](https://github.com/thelonMusk)
+- **GitHub**: [thelonMusk](https://github.com/thelonMusk)
 - **Email**: aatiesh99@gmail.com
 
 ---
