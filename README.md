@@ -1,123 +1,77 @@
-#  Aerospace Engineering Portfolio
+# Engineering Portfolio — Aatiesh
 
-A cutting-edge, space-themed portfolio showcasing engineering projects, leadership experience, and technical capabilities. Built with modern web technologies and featuring stunning animations inspired by aerospace design.
+A single-page portfolio built around a technical blueprint aesthetic: drafting-navy ground, cyan
+linework, one amber accent used sparingly, and the whole page framed as a numbered drawing set
+("SHEET 01 / 04" ... a title-block footer) rather than a generic template layout.
 
-##  Features
+## Design System
 
-### Visual Design
-- **Animated Starfield Background** - Dynamic particle system with depth-based coloring (cyan & purple stars)
-- **Modern Space-Themed Fonts**
-  - `Orbitron` - Futuristic headings
-  - `Rajdhani` - Clean technical body text
-  - `Space Mono` - Monospace accents
-- **Smooth Animations** - Fade-in effects, hover transformations, and progress bar animations
-- **Neon Glow Effects** - Cyberpunk-inspired glowing borders and shadows
-- **Fully Responsive** - Optimized for desktop, tablet, and mobile devices
+Everything is driven by CSS custom properties defined once in `:root`, so the whole page reads as
+one system rather than a pile of one-off styles.
 
-### Sections
-1. **Hero Section** - Bold introduction with animated scroll indicator
-2. **Academic Profile** - Current studies (Year 13 NCEA) and Level 2 achievements
-3. **Engineering Projects** - Featured technical projects with outcomes
-4. **Leadership Impact** - Timeline visualization of leadership roles
-5. **Technical Stack** - Animated skill bars across programming, engineering, and leadership
-6. **Competitions & Recognition** - Grid of 10+ achievements and awards
-7. **Call to Action** - Contact links and scholarship opportunities
+**Colour**
+| Token | Value | Use |
+|---|---|---|
+| `--bg` | `#0a1420` | Base drafting-navy background |
+| `--bg-2` / `--bg-3` | `#0d1c2c` / `#11253a` | Panel and hover fills |
+| `--cyan` / `--cyan-bright` | `#8ecfe8` / `#c3e8f7` | Primary linework, headings, accents |
+| `--amber` / `--amber-bright` | `#ffab4d` / `#ffc57a` | The one bold accent — CTA fill, stamps, endorsement tags |
+| `--paper` | `#eef6fb` | Primary text |
+| `--ink` / `--ink-dim` | `#a9c1d1` / `#5f7b8f` | Body copy / tertiary labels |
 
-##  Technologies Used
+**Type** — three families, each with a job: `Space Grotesk` (display headings), `IBM Plex Mono`
+(labels, nav, data, tags — anything reading as a technical annotation), `Inter` (body copy).
 
-- **HTML5** - Semantic markup
-- **CSS3** - Advanced animations, gradients, and transitions
-- **Vanilla JavaScript** - Canvas API for starfield, Intersection Observer for scroll effects
-- **Google Fonts** - Orbitron, Rajdhani, Space Mono
+**Spacing** — a `--sp-1` … `--sp-20` scale (0.25rem → 9rem) used throughout instead of ad hoc values.
 
-##  Setup Instructions
+**Motifs** — a live grid-paper background (`body` background-image, two layered grid sizes), drawn
+dimension-line rules under section headers (SVG-free, CSS `scaleX` transform triggered on scroll),
+corner registration marks, a rotated dashed "stamp" badge on the flagship project, and a footer
+styled as an engineering title block (Title / Sheet / Scale / Rev / Date).
 
-### Quick Start
-1. Download the `index.html` file
-2. Open it in any modern web browser
-3. That's it! No build process or dependencies required
+## Interactions
 
-### Customization
+- Scroll-triggered reveals (`IntersectionObserver`) with a shared easing curve
+- Count-up animation on stat numbers when they enter the viewport
+- A scroll-progress ruler pinned under the nav, plus active-section highlighting in the nav links
+- A cursor coordinate readout in the hero (desktop + fine-pointer only — hidden on touch)
+- A full-screen mobile nav panel below 960px
+- `prefers-reduced-motion: reduce` disables the scroll/count/line-draw animations and the smooth-scroll behaviour
 
-#### Update Personal Information
-Replace the following placeholders in the HTML:
+## Sections
 
-```html
-<!-- GitHub Link (appears twice - top and bottom) -->
-<a href="https://github.com/yourusername" target="_blank">
-<!-- Change "yourusername" to your actual GitHub username -->
+1. **Hero** — name, tagline, key stats, contact links
+2. **Sheet 01 — Academic Profile** — NCEA history, current subjects, ambassadorships
+3. **Sheet 02 — Engineering Projects** — flagship build (Tago RFID attendance system) plus four
+   supporting projects
+4. **Sheet 03 — Leadership & Service** — a role/organisation/impact table, plus service metrics
+5. **Sheet 04 — Honours & Recognition** — competitions, university challenges, school awards
+6. **Contact / footer** — CTA and a title-block-style footer
 
-<!-- Email Contact (appears twice) -->
-<a href="mailto:your.email@example.com">
-<!-- Change to your actual email address -->
-```
+## Setup
 
-#### Modify Content
-- **Academic Info** - Update subjects and credits in the Academic Profile section
-- **Projects** - Edit project cards in the `#projects` section
-- **Skills** - Adjust skill percentages in the `skill-progress` style attributes
-- **Achievements** - Add/remove achievement cards as needed
+Single static HTML file, no build step, no dependencies.
 
-#### Color Scheme
-Modify CSS variables in the `:root` selector:
+1. Open `index.html` directly in a browser, or serve the folder with any static file server
+2. Deploys as-is to Vercel (or any static host) — no build command needed
 
-```css
-:root {
-    --primary: #0a0e27;      /* Dark background */
-    --secondary: #151934;     /* Card background */
-    --accent: #00f0ff;        /* Cyan glow */
-    --accent-2: #7b2ff7;      /* Purple accent */
-    --text: #8892b0;          /* Body text */
-    --bright: #e6f1ff;        /* Headings */
-}
-```
+### Customisation
 
-##  Design Philosophy
+- **Personal info** — update the `mailto:` and GitHub links (appear in the hero and the closing CTA)
+- **Content** — each section is a `.sheet` block with an `id`; edit the markup directly
+- **Colours / spacing / type** — change the tokens in the `:root` block at the top of the `<style>` tag
+- **Stat counters** — add `class="count" data-target="123" data-suffix="+"` to any number; the
+  script animates it from 0 on scroll
 
-This portfolio embraces modern aerospace aesthetics:
-- **Dark Theme** - Reduces eye strain, emphasizes content
-- **Neon Accents** - Creates visual hierarchy and draws attention
-- **Space Motifs** - Starfield, orbital fonts, mission-control aesthetics
-- **Systems Thinking** - Clean organization reflecting engineering mindset
+## Browser support
 
-##  Browser Compatibility
+Modern evergreen browsers (Chrome/Edge, Firefox, Safari, mobile). Uses `IntersectionObserver`,
+`backdrop-filter`, and CSS custom properties — no polyfills included.
 
-Tested and optimized for:
--  Chrome/Edge (Chromium) 90+
--  Firefox 88+
--  Safari 14+
--  Mobile browsers (iOS Safari, Chrome Mobile)
-
-##  Performance
-
-- **Lightweight** - Single HTML file, ~40KB uncompressed
-- **Fast Loading** - Fonts loaded asynchronously
-- **Smooth Animations** - 60fps canvas rendering
-- **Optimized Images** - No external images required
-
-##  License
-
-This portfolio template is free to use for personal and educational purposes. Feel free to:
-- Use it as your own portfolio
-- Modify the design and content
-- Learn from the code
-
-**Please do not:**
--  Claim the template design as your own creation
--  Sell or redistribute as a template
-
-##  Acknowledgments
-
-- **Font Families** - Google Fonts (Orbitron, Rajdhani, Space Mono)
-- **Inspiration** - Modern aerospace UI/UX, cyberpunk aesthetics, mission control interfaces
-
-##  Contact
+## Contact
 
 - **GitHub**: [thelonMusk](https://github.com/thelonMusk)
 - **Email**: aatiesh99@gmail.com
 
 ---
-
-**Built with passion for aerospace engineering and systems-level thinking** 
-
-*Last Updated: January 2026*
+*Last updated: August 2026*

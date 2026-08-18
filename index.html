@@ -3,35 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aatiesh — Student Portfolio</title>
+    <title>Aatiesh — Engineering Portfolio</title>
     <meta name="description" content="Aatiesh — Year 13 student portfolio. Aerospace R&D, full-stack engineering, competitive robotics, and sustained community leadership.">
-    <meta property="og:title" content="Aatiesh — Student Portfolio">
+    <meta property="og:title" content="Aatiesh — Engineering Portfolio">
     <meta property="og:description" content="Engineering, science, and leadership approached as interconnected disciplines.">
     <meta property="og:type" content="website">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23080807'/%3E%3Crect x='30' y='30' width='40' height='40' fill='%23c9a84c' transform='rotate(45 50 50)'/%3E%3C/svg%3E">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230a1420'/%3E%3Ccircle cx='50' cy='50' r='26' fill='none' stroke='%238ecfe8' stroke-width='5'/%3E%3Cline x1='50' y1='4' x2='50' y2='24' stroke='%238ecfe8' stroke-width='5'/%3E%3Cline x1='50' y1='76' x2='50' y2='96' stroke='%238ecfe8' stroke-width='5'/%3E%3Cline x1='4' y1='50' x2='24' y2='50' stroke='%238ecfe8' stroke-width='5'/%3E%3Cline x1='76' y1='50' x2='96' y2='50' stroke='%238ecfe8' stroke-width='5'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
+        /* ============================================================
+           TOKENS
+        ============================================================ */
         :root {
-            --black:    #080807;
-            --black2:   #0f0f0d;
-            --black3:   #161613;
-            --gold:     #c9a84c;
-            --gold-lt:  #e8c97a;
-            --gold-dim: #6b5520;
-            --white:    #f5f0e8;
-            --offwhite: #d4cdc0;
-            --gray:     #7a7568;
-            --rule:     rgba(201,168,76,0.18);
+            /* colour */
+            --bg:         #0a1420;
+            --bg-2:       #0d1c2c;
+            --bg-3:       #11253a;
+            --bg-inset:   #071019;
+            --line-soft:  rgba(142,207,232,0.055);
+            --line:       rgba(142,207,232,0.14);
+            --line-strong:rgba(142,207,232,0.32);
+            --cyan-dim:   #3f6d84;
+            --cyan:       #8ecfe8;
+            --cyan-bright:#c3e8f7;
+            --amber:      #ffab4d;
+            --amber-bright:#ffc57a;
+            --paper:      #eef6fb;
+            --ink:        #a9c1d1;
+            --ink-dim:    #5f7b8f;
+
+            /* type */
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body:    'Inter', sans-serif;
+            --font-mono:    'IBM Plex Mono', monospace;
+
+            /* spacing */
+            --sp-1: 0.25rem;  --sp-2: 0.5rem;   --sp-3: 0.75rem;
+            --sp-4: 1rem;     --sp-5: 1.5rem;   --sp-6: 2rem;
+            --sp-7: 2.5rem;   --sp-8: 3rem;     --sp-10: 4rem;
+            --sp-12: 5rem;    --sp-16: 7rem;    --sp-20: 9rem;
+
+            /* motion */
+            --ease: cubic-bezier(.16,1,.3,1);
+            --dur-f: 0.22s;
+            --dur-m: 0.45s;
+            --dur-s: 0.9s;
         }
 
-        html { scroll-behavior: smooth; font-size: 16px; }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; scroll-padding-top: 110px; }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: var(--black);
-            color: var(--gray);
+            font-family: var(--font-body);
+            background-color: var(--bg);
+            background-image:
+                linear-gradient(var(--line-soft) 1px, transparent 1px),
+                linear-gradient(90deg, var(--line-soft) 1px, transparent 1px),
+                linear-gradient(var(--line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--line) 1px, transparent 1px);
+            background-size: 24px 24px, 24px 24px, 120px 120px, 120px 120px;
+            background-attachment: fixed;
+            color: var(--ink);
             overflow-x: hidden;
             line-height: 1.6;
         }
@@ -42,158 +76,253 @@
             inset: 0;
             pointer-events: none;
             z-index: 500;
-            opacity: 0.028;
+            opacity: 0.02;
+            mix-blend-mode: screen;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
-        /* NAV */
-        nav {
+        ::selection { background: var(--cyan); color: var(--bg); }
+
+        a { color: inherit; }
+
+        .mono { font-family: var(--font-mono); }
+
+        /* ============================================================
+           SCROLL PROGRESS RULER
+        ============================================================ */
+        .ruler {
             position: fixed;
             top: 0; left: 0; right: 0;
+            height: 2px;
+            z-index: 300;
+            background: var(--line);
+        }
+        .ruler-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--cyan-dim), var(--cyan));
+            transition: width 0.1s linear;
+        }
+
+        /* ============================================================
+           NAV
+        ============================================================ */
+        nav {
+            position: fixed;
+            top: 2px; left: 0; right: 0;
             z-index: 200;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.6rem 5vw;
-            background: rgba(8,8,7,0.95);
-            border-bottom: 1px solid var(--rule);
-            backdrop-filter: blur(12px);
+            padding: 1.4rem 5vw;
+            background: rgba(10,20,32,0.88);
+            border-bottom: 1px solid var(--line);
+            backdrop-filter: blur(10px);
         }
 
-        .nav-name {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: var(--gold);
-            letter-spacing: 0.08em;
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
             text-decoration: none;
+        }
+
+        .nav-brand svg { display: block; flex-shrink: 0; }
+
+        .nav-brand span {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            color: var(--paper);
         }
 
         .nav-links {
             display: flex;
-            gap: 3rem;
+            gap: 2.4rem;
             list-style: none;
         }
 
         .nav-links a {
+            position: relative;
+            display: inline-block;
+            font-family: var(--font-mono);
             font-size: 0.68rem;
-            font-weight: 600;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--gray);
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: var(--ink-dim);
             text-decoration: none;
-            transition: color 0.25s;
+            padding-bottom: 0.4rem;
+            transition: color var(--dur-f) var(--ease);
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: 0;
+            width: 100%; height: 1px;
+            background: var(--cyan);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--dur-m) var(--ease);
+        }
+        .nav-links a:hover { color: var(--cyan); }
+        .nav-links a:hover::after,
+        .nav-links a.active::after { transform: scaleX(1); }
+        .nav-links a.active { color: var(--cyan-bright); }
+        .nav-links a b { color: var(--cyan-dim); font-weight: 500; margin-right: 0.4em; }
+        .nav-links a.active b { color: var(--cyan); }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            width: 26px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.4rem;
+        }
+        .nav-toggle span { display: block; height: 1px; background: var(--cyan); width: 100%; transition: transform var(--dur-f) var(--ease), opacity var(--dur-f) var(--ease); }
+
+        .mobile-panel {
+            position: fixed;
+            inset: 0;
+            z-index: 250;
+            background: var(--bg);
+            background-image:
+                linear-gradient(var(--line-soft) 1px, transparent 1px),
+                linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+            background-size: 24px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 8vh 8vw;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: opacity var(--dur-m) var(--ease), transform var(--dur-m) var(--ease), visibility var(--dur-m);
+        }
+        .mobile-panel.open { opacity: 1; visibility: visible; transform: translateY(0); }
+        .mobile-panel ul { list-style: none; }
+        .mobile-panel li { border-bottom: 1px solid var(--line); }
+        .mobile-panel a {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            padding: 1.4rem 0;
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--paper);
+            text-decoration: none;
+        }
+        .mobile-panel a b { font-family: var(--font-mono); font-size: 0.9rem; font-weight: 500; color: var(--cyan); }
+        .mobile-close {
+            position: absolute;
+            top: 1.6rem; right: 6vw;
+            background: none; border: none;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            color: var(--ink);
+            cursor: pointer;
         }
 
-        .nav-links a:hover { color: var(--gold); }
+        /* ============================================================
+           CORNER / FRAME MARKS
+        ============================================================ */
+        .frame-marks { position: absolute; inset: 0; pointer-events: none; }
+        .frame-marks span { position: absolute; width: 20px; height: 20px; opacity: 0.6; }
+        .frame-marks .tl { top: 0; left: 0; border-top: 1px solid var(--cyan); border-left: 1px solid var(--cyan); }
+        .frame-marks .tr { top: 0; right: 0; border-top: 1px solid var(--cyan); border-right: 1px solid var(--cyan); }
+        .frame-marks .bl { bottom: 0; left: 0; border-bottom: 1px solid var(--cyan); border-left: 1px solid var(--cyan); }
+        .frame-marks .br { bottom: 0; right: 0; border-bottom: 1px solid var(--cyan); border-right: 1px solid var(--cyan); }
 
-        /* HERO */
+        /* ============================================================
+           HERO
+        ============================================================ */
         .hero {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 0 5vw 7rem;
+            padding: 0 5vw 6.5rem;
             position: relative;
             overflow: hidden;
         }
 
-        .hero::before {
-            content: '';
+        .hero-coord {
             position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent 0%, var(--gold) 30%, var(--gold-lt) 50%, var(--gold) 70%, transparent 100%);
+            top: 6.5rem; left: 5vw;
+            font-family: var(--font-mono);
+            font-size: 0.66rem;
+            letter-spacing: 0.1em;
+            color: var(--ink-dim);
+        }
+        .hero-coord-r {
+            position: absolute;
+            top: 6.5rem; right: 5vw;
+            font-family: var(--font-mono);
+            font-size: 0.66rem;
+            letter-spacing: 0.1em;
+            color: var(--ink-dim);
+            text-align: right;
         }
 
-        .hero-bg {
+        .hero-readout {
             position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 100%);
+            bottom: 2.4rem; right: 5vw;
+            font-family: var(--font-mono);
+            font-size: 0.66rem;
+            letter-spacing: 0.08em;
+            color: var(--cyan-dim);
+            display: flex;
+            gap: 1.2rem;
         }
 
-        .hero-corner {
-            position: absolute;
-            top: 4rem; right: 5vw;
-            width: 160px; height: 160px;
-            border-top: 1px solid var(--gold-dim);
-            border-right: 1px solid var(--gold-dim);
-            opacity: 0.4;
-        }
-
-        .hero-corner-bl {
-            position: absolute;
-            bottom: 4rem; left: 5vw;
-            width: 100px; height: 100px;
-            border-bottom: 1px solid var(--gold-dim);
-            border-left: 1px solid var(--gold-dim);
-            opacity: 0.3;
-        }
-
-        .hero-label {
-            font-size: 0.68rem;
-            font-weight: 600;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 1.8rem;
+        .hero-eyebrow {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            color: var(--cyan);
+            margin-bottom: 1.6rem;
             opacity: 0;
-            animation: riseIn 0.9s 0.2s cubic-bezier(.22,1,.36,1) forwards;
+            animation: riseIn 0.9s 0.2s var(--ease) forwards;
         }
 
         .hero-name {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(4.5rem, 11vw, 10rem);
-            font-weight: 300;
-            color: var(--white);
-            line-height: 0.9;
-            letter-spacing: -0.01em;
-            margin-bottom: 2.5rem;
+            font-family: var(--font-display);
+            font-size: clamp(3.2rem, 10vw, 7.6rem);
+            font-weight: 700;
+            color: var(--paper);
+            line-height: 0.96;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.6rem;
             opacity: 0;
-            animation: riseIn 1s 0.4s cubic-bezier(.22,1,.36,1) forwards;
+            animation: riseIn 1s 0.35s var(--ease) forwards;
         }
 
-        .hero-name em {
-            font-style: italic;
-            color: var(--gold-lt);
-        }
-
-        .hero-divider {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+        .hero-tagline {
+            font-family: var(--font-display);
+            font-weight: 400;
+            font-style: normal;
+            color: var(--cyan-bright);
+            font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+            margin-bottom: 2.2rem;
             opacity: 0;
-            animation: riseIn 0.9s 0.6s cubic-bezier(.22,1,.36,1) forwards;
-        }
-
-        .hero-divider-line {
-            flex: 1;
-            max-width: 200px;
-            height: 1px;
-            background: var(--gold-dim);
-        }
-
-        .hero-divider-diamond {
-            width: 6px; height: 6px;
-            background: var(--gold);
-            transform: rotate(45deg);
-            flex-shrink: 0;
+            animation: riseIn 0.9s 0.5s var(--ease) forwards;
         }
 
         .hero-sub {
-            max-width: 640px;
+            max-width: 620px;
             font-size: 0.92rem;
             font-weight: 300;
-            line-height: 1.9;
-            color: var(--offwhite);
+            line-height: 1.85;
+            color: var(--ink);
             margin-bottom: 3rem;
             opacity: 0;
-            animation: riseIn 0.9s 0.7s cubic-bezier(.22,1,.36,1) forwards;
+            animation: riseIn 0.9s 0.65s var(--ease) forwards;
         }
 
         .hero-meta {
@@ -201,271 +330,274 @@
             gap: 3rem;
             flex-wrap: wrap;
             align-items: center;
+            padding-top: 2rem;
+            border-top: 1px dashed var(--line);
             opacity: 0;
-            animation: riseIn 0.9s 0.9s cubic-bezier(.22,1,.36,1) forwards;
+            animation: riseIn 0.9s 0.8s var(--ease) forwards;
         }
 
-        .hero-meta-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
-        }
+        .hero-meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
 
         .meta-num {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.2rem;
-            font-weight: 500;
-            color: var(--gold-lt);
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--cyan-bright);
             line-height: 1;
         }
 
         .meta-label {
-            font-size: 0.62rem;
-            font-weight: 600;
-            letter-spacing: 0.2em;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: var(--gray);
-        }
-
-        .meta-sep {
-            width: 1px;
-            height: 40px;
-            background: var(--rule);
+            color: var(--ink-dim);
         }
 
         .hero-links {
             display: flex;
             gap: 1rem;
-            margin-top: 3rem;
+            margin-top: 2.6rem;
             opacity: 0;
-            animation: riseIn 0.9s 1.1s cubic-bezier(.22,1,.36,1) forwards;
+            animation: riseIn 0.9s 0.95s var(--ease) forwards;
         }
 
         .btn {
-            display: inline-block;
-            padding: 0.75rem 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.85rem 1.7rem;
+            font-family: var(--font-mono);
             font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 0.22em;
+            font-weight: 600;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
             text-decoration: none;
             border: 1px solid;
-            transition: all 0.3s ease;
+            transition: all var(--dur-f) var(--ease);
         }
 
-        .btn-gold {
-            background: var(--gold);
-            border-color: var(--gold);
-            color: var(--black);
+        .btn-fill {
+            background: var(--amber);
+            border-color: var(--amber);
+            color: var(--bg-inset);
         }
-        .btn-gold:hover { background: var(--gold-lt); border-color: var(--gold-lt); }
+        .btn-fill:hover { background: var(--amber-bright); border-color: var(--amber-bright); transform: translateY(-1px); }
 
-        .btn-ghost {
+        .btn-outline {
             background: transparent;
-            border-color: var(--gold-dim);
-            color: var(--offwhite);
+            border-color: var(--line-strong);
+            color: var(--ink);
         }
-        .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+        .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-1px); }
 
-        /* SECTION WRAPPER */
-        .sec-wrap {
-            border-top: 1px solid var(--rule);
-            padding: 7rem 5vw;
-        }
-
-        .sec-inner {
-            max-width: 1320px;
-            margin: 0 auto;
-        }
-
-        .section-header {
+        .scroll-cue {
+            position: absolute;
+            bottom: 2.4rem; left: 5vw;
             display: flex;
-            align-items: baseline;
-            gap: 1.5rem;
-            margin-bottom: 4rem;
+            align-items: center;
+            gap: 0.8rem;
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.2em;
+            color: var(--ink-dim);
+        }
+        .scroll-cue-line { width: 1px; height: 32px; background: var(--line-strong); position: relative; overflow: hidden; }
+        .scroll-cue-line::after {
+            content: '';
+            position: absolute;
+            left: 0; top: -100%;
+            width: 100%; height: 100%;
+            background: var(--cyan);
+            animation: dropLine 2.2s ease-in-out infinite;
+        }
+        @keyframes dropLine {
+            0% { top: -100%; }
+            60% { top: 100%; }
+            100% { top: 100%; }
         }
 
-        .section-num {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 0.9rem;
-            font-style: italic;
-            color: var(--gold);
-            letter-spacing: 0.08em;
+        /* ============================================================
+           SHEET / SECTION WRAPPER
+        ============================================================ */
+        .sheet {
+            border-top: 1px solid var(--line);
+            padding: 6.5rem 5vw;
+            position: relative;
+        }
+        .sheet-inner { max-width: 1320px; margin: 0 auto; }
+
+        .sheet-head {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-bottom: 3.5rem;
+            flex-wrap: wrap;
+        }
+
+        .sheet-head-left { display: flex; align-items: baseline; gap: 1.4rem; }
+
+        .sheet-tag {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            color: var(--cyan);
+            border: 1px solid var(--cyan-dim);
+            padding: 0.3rem 0.7rem;
             flex-shrink: 0;
         }
 
-        .section-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            font-weight: 300;
-            color: var(--white);
+        .sheet-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.9rem, 3.6vw, 3rem);
+            font-weight: 600;
+            color: var(--paper);
             letter-spacing: -0.01em;
             line-height: 1;
         }
+        .sheet-title span { color: var(--cyan-bright); }
 
-        .section-title em { font-style: italic; color: var(--gold-lt); }
-
-        .section-rule {
-            flex: 1;
-            height: 1px;
-            background: var(--rule);
+        .sheet-ref {
+            font-family: var(--font-mono);
+            font-size: 0.64rem;
+            letter-spacing: 0.1em;
+            color: var(--ink-dim);
+            text-align: right;
+            line-height: 1.7;
         }
 
-        /* ACADEMIC */
+        .sheet-rule-wrap { overflow: hidden; margin-bottom: 3.5rem; }
+        .sheet-rule {
+            height: 1px;
+            background: linear-gradient(90deg, var(--cyan), transparent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 1.1s var(--ease);
+        }
+        .reveal-line.visible .sheet-rule { transform: scaleX(1); }
+
+        /* ============================================================
+           ACADEMIC
+        ============================================================ */
         .academic-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            border: 1px solid var(--rule);
+            border: 1px solid var(--line);
         }
 
         .academic-block {
-            padding: 3rem;
-            border-right: 1px solid var(--rule);
-            border-bottom: 1px solid var(--rule);
-            transition: background 0.3s;
+            padding: 2.6rem;
+            border-right: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            position: relative;
+            overflow: hidden;
+            transition: background var(--dur-m) var(--ease);
         }
         .academic-block:nth-child(2n) { border-right: none; }
         .academic-block:nth-last-child(-n+2) { border-bottom: none; }
-        .academic-block:hover { background: var(--black3); }
+        .academic-block:hover { background: var(--bg-2); }
+        .academic-block::before {
+            content: '';
+            position: absolute; left: 0; top: 0;
+            width: 2px; height: 0;
+            background: var(--cyan);
+            transition: height var(--dur-s) var(--ease);
+        }
+        .academic-block:hover::before { height: 100%; }
+        .academic-block::after {
+            content: '';
+            position: absolute; top: 10px; right: 10px;
+            width: 16px; height: 16px;
+            border-top: 1px solid var(--cyan);
+            border-right: 1px solid var(--cyan);
+            opacity: 0;
+            transform: translate(-4px, 4px);
+            transition: opacity var(--dur-m) var(--ease), transform var(--dur-m) var(--ease);
+        }
+        .academic-block:hover::after { opacity: 0.9; transform: translate(0,0); }
 
         .academic-label {
-            font-size: 0.62rem;
-            font-weight: 700;
-            letter-spacing: 0.28em;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 0.4rem;
+            color: var(--cyan);
+            margin-bottom: 0.5rem;
         }
 
         .academic-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.6rem;
-            font-weight: 400;
-            color: var(--white);
-            margin-bottom: 0.5rem;
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--paper);
+            margin-bottom: 0.6rem;
         }
 
         .endorsement-tag {
             display: inline-block;
-            padding: 0.22rem 0.8rem;
-            border: 1px solid var(--gold-dim);
-            font-size: 0.6rem;
-            font-weight: 700;
-            letter-spacing: 0.2em;
+            padding: 0.24rem 0.75rem;
+            border: 1px dashed var(--amber);
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 1.5rem;
+            color: var(--amber);
+            margin-bottom: 1.4rem;
         }
 
         .alist { list-style: none; }
-
         .alist li {
             display: flex;
             align-items: center;
             gap: 0.8rem;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(201,168,76,0.07);
-            font-size: 0.86rem;
-            color: var(--offwhite);
-            font-weight: 400;
+            padding: 0.55rem 0;
+            border-bottom: 1px solid var(--line-soft);
+            font-size: 0.85rem;
+            color: var(--ink);
         }
         .alist li:last-child { border-bottom: none; }
         .alist li::before {
             content: '';
-            width: 3px; height: 3px;
-            background: var(--gold);
-            border-radius: 50%;
+            width: 5px; height: 5px;
+            border: 1px solid var(--cyan);
             flex-shrink: 0;
         }
 
-        /* PROJECTS */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            border: 1px solid var(--rule);
-        }
-
-        .project-card {
-            padding: 3rem;
-            border-right: 1px solid var(--rule);
-            border-bottom: 1px solid var(--rule);
-            position: relative;
-            overflow: hidden;
-            transition: background 0.3s;
-        }
-        .project-card:nth-child(even) { border-right: none; }
-        .project-card:nth-last-child(-n+2) { border-bottom: none; }
-        .project-card:hover { background: var(--black3); }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 0;
-            width: 2px; height: 0;
-            background: var(--gold);
-            transition: height 0.45s cubic-bezier(.22,1,.36,1);
-        }
-        .project-card:hover::before { height: 100%; }
-
-        .project-index {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 0.8rem;
-            font-style: italic;
-            color: var(--gold-dim);
-            margin-bottom: 1.2rem;
-        }
-
-        .project-card h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.55rem;
-            font-weight: 500;
-            color: var(--white);
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-
-        .project-card p {
-            font-size: 0.84rem;
-            line-height: 1.8;
-            color: var(--gray);
-        }
-
-        .project-footer {
-            margin-top: 1.8rem;
-            padding-top: 1.4rem;
-            border-top: 1px solid var(--rule);
-        }
-
-        .project-footer-label {
-            font-size: 0.62rem;
-            font-weight: 700;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 0.2rem;
-        }
-
-        .project-footer p {
-            font-size: 0.84rem;
-            color: var(--offwhite);
-        }
-
-        /* FEATURED PROJECT */
+        /* ============================================================
+           PROJECTS
+        ============================================================ */
         .featured-project {
-            border: 1px solid var(--rule);
-            padding: 3.5rem;
+            border: 1px solid var(--line);
+            padding: 3.2rem;
             margin-bottom: 3rem;
             position: relative;
             overflow: hidden;
-            background: linear-gradient(180deg, var(--black2) 0%, var(--black) 100%);
+            background: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 100%);
         }
-
         .featured-project::before {
             content: '';
-            position: absolute;
-            left: 0; top: 0;
+            position: absolute; left: 0; top: 0;
             width: 3px; height: 100%;
-            background: linear-gradient(180deg, var(--gold) 0%, var(--gold-dim) 100%);
+            background: linear-gradient(180deg, var(--cyan) 0%, var(--cyan-dim) 100%);
+        }
+
+        .stamp {
+            position: absolute;
+            top: 2.2rem; right: 2.4rem;
+            padding: 0.5rem 1rem;
+            border: 2px dashed var(--amber);
+            color: var(--amber);
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            transform: rotate(-5deg);
+            opacity: 0.9;
         }
 
         .featured-tag {
@@ -473,29 +605,31 @@
             align-items: center;
             gap: 0.6rem;
             padding: 0.3rem 0.9rem;
-            border: 1px solid var(--gold);
+            border: 1px solid var(--cyan);
+            font-family: var(--font-mono);
             font-size: 0.6rem;
-            font-weight: 700;
-            letter-spacing: 0.22em;
+            font-weight: 600;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 1.8rem;
+            color: var(--cyan);
+            margin-bottom: 1.6rem;
         }
 
         .featured-project h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(1.8rem, 3vw, 2.3rem);
-            font-weight: 500;
-            color: var(--white);
-            margin-bottom: 1.3rem;
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+            font-weight: 600;
+            color: var(--paper);
+            margin-bottom: 1.2rem;
             line-height: 1.15;
+            max-width: 720px;
         }
 
         .featured-project > p {
-            max-width: 840px;
+            max-width: 820px;
             font-size: 0.9rem;
             line-height: 1.9;
-            color: var(--offwhite);
+            color: var(--ink);
             margin-bottom: 2.2rem;
         }
 
@@ -503,392 +637,352 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
-            padding: 2rem 0;
-            border-top: 1px solid var(--rule);
-            border-bottom: 1px solid var(--rule);
+            padding: 1.8rem 0;
+            border-top: 1px dashed var(--line);
+            border-bottom: 1px dashed var(--line);
             margin-bottom: 2rem;
         }
 
         .featured-stat-num {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: var(--font-display);
             font-size: 2rem;
-            font-weight: 500;
-            color: var(--gold-lt);
+            font-weight: 700;
+            color: var(--cyan-bright);
             line-height: 1;
             margin-bottom: 0.5rem;
         }
 
         .featured-stat-label {
-            font-size: 0.7rem;
-            color: var(--gray);
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--ink-dim);
             line-height: 1.6;
         }
 
-        .tech-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.7rem;
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+        .tech-tag {
+            padding: 0.35rem 0.85rem;
+            border: 1px solid var(--line-strong);
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--ink);
         }
 
-        .tech-tag {
-            padding: 0.35rem 0.9rem;
-            border: 1px solid var(--gold-dim);
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border: 1px solid var(--line);
+        }
+
+        .project-card {
+            padding: 2.6rem;
+            border-right: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            position: relative;
+            overflow: hidden;
+            transition: background var(--dur-m) var(--ease);
+        }
+        .project-card:nth-child(even) { border-right: none; }
+        .project-card:nth-last-child(-n+2) { border-bottom: none; }
+        .project-card:hover { background: var(--bg-2); }
+        .project-card::before {
+            content: '';
+            position: absolute; left: 0; top: 0;
+            width: 2px; height: 0;
+            background: var(--cyan);
+            transition: height var(--dur-s) var(--ease);
+        }
+        .project-card:hover::before { height: 100%; }
+        .project-card::after {
+            content: '';
+            position: absolute; top: 10px; right: 10px;
+            width: 16px; height: 16px;
+            border-top: 1px solid var(--cyan);
+            border-right: 1px solid var(--cyan);
+            opacity: 0;
+            transform: translate(-4px, 4px);
+            transition: opacity var(--dur-m) var(--ease), transform var(--dur-m) var(--ease);
+        }
+        .project-card:hover::after { opacity: 0.9; transform: translate(0,0); }
+
+        .project-index {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            color: var(--cyan-dim);
+            margin-bottom: 1.2rem;
+        }
+
+        .project-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--paper);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .project-card p { font-size: 0.84rem; line-height: 1.8; color: var(--ink-dim); }
+
+        .project-footer { margin-top: 1.8rem; padding-top: 1.3rem; border-top: 1px dashed var(--line); }
+        .project-footer-label {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-bottom: 0.3rem;
+        }
+        .project-footer p { font-size: 0.84rem; color: var(--ink); }
+
+        /* ============================================================
+           LEADERSHIP TABLE
+        ============================================================ */
+        .ltable { width: 100%; border-collapse: collapse; border: 1px solid var(--line); }
+        .ltable thead th {
+            padding: 1rem 1.4rem;
+            text-align: left;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--cyan);
+            border-bottom: 1px solid var(--line);
+            background: var(--bg-2);
+        }
+        .ltable tbody tr { border-bottom: 1px solid var(--line); transition: background var(--dur-f) var(--ease); }
+        .ltable tbody tr:last-child { border-bottom: none; }
+        .ltable tbody tr:hover { background: var(--bg-2); }
+        .ltable td { padding: 1.3rem 1.4rem; vertical-align: top; }
+
+        .t-role {
+            font-family: var(--font-mono);
             font-size: 0.66rem;
             font-weight: 600;
             letter-spacing: 0.06em;
-            color: var(--offwhite);
-        }
-
-        /* LEADERSHIP TABLE */
-        .ltable {
-            width: 100%;
-            border-collapse: collapse;
-            border: 1px solid var(--rule);
-        }
-
-        .ltable thead th {
-            padding: 1rem 1.5rem;
-            text-align: left;
-            font-size: 0.6rem;
-            font-weight: 700;
-            letter-spacing: 0.28em;
             text-transform: uppercase;
-            color: var(--gold);
-            border-bottom: 1px solid var(--rule);
-            background: var(--black2);
-        }
-
-        .ltable tbody tr {
-            border-bottom: 1px solid var(--rule);
-            transition: background 0.2s;
-        }
-        .ltable tbody tr:last-child { border-bottom: none; }
-        .ltable tbody tr:hover { background: var(--black3); }
-
-        .ltable td {
-            padding: 1.4rem 1.5rem;
-            vertical-align: top;
-        }
-
-        .t-role {
-            font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--gold);
+            color: var(--cyan);
             white-space: nowrap;
         }
-
-        .t-org {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.15rem;
-            font-weight: 500;
-            color: var(--white);
-            margin-bottom: 0.3rem;
-        }
-
-        .t-desc {
-            font-size: 0.82rem;
-            color: var(--gray);
-            line-height: 1.75;
-        }
-
-        .t-meta {
-            font-size: 0.68rem;
-            color: var(--gray);
-            white-space: nowrap;
-            text-align: right;
-        }
+        .t-org { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; color: var(--paper); margin-bottom: 0.3rem; }
+        .t-desc { font-size: 0.82rem; color: var(--ink-dim); line-height: 1.75; }
+        .t-meta { font-family: var(--font-mono); font-size: 0.66rem; color: var(--ink-dim); white-space: nowrap; text-align: right; }
 
         .badge {
             display: inline-block;
             margin-top: 0.4rem;
-            padding: 0.18rem 0.65rem;
-            background: rgba(201,168,76,0.1);
-            border: 1px solid rgba(201,168,76,0.3);
+            padding: 0.18rem 0.6rem;
+            background: rgba(142,207,232,0.08);
+            border: 1px solid var(--cyan-dim);
+            font-family: var(--font-mono);
             font-size: 0.58rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: var(--cyan);
         }
 
         /* SERVICE STATS */
-        .service-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            border: 1px solid var(--rule);
-        }
-
-        .service-card {
-            padding: 3rem;
-            border-right: 1px solid var(--rule);
-            transition: background 0.3s;
-        }
+        .service-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; border: 1px solid var(--line); margin-top: 3rem; }
+        .service-card { padding: 2.6rem; border-right: 1px solid var(--line); transition: background var(--dur-m) var(--ease); }
         .service-card:last-child { border-right: none; }
-        .service-card:hover { background: var(--black3); }
-
-        .service-num {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3.5rem;
-            font-weight: 300;
-            color: var(--gold-lt);
-            line-height: 1;
-            margin-bottom: 0.5rem;
-        }
-
+        .service-card:hover { background: var(--bg-2); }
+        .service-num { font-family: var(--font-display); font-size: 3rem; font-weight: 700; color: var(--cyan-bright); line-height: 1; margin-bottom: 0.5rem; }
         .service-label {
-            font-size: 0.62rem;
-            font-weight: 700;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--gray);
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--rule);
+            font-family: var(--font-mono);
+            font-size: 0.62rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+            color: var(--ink-dim); margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px dashed var(--line);
         }
+        .service-desc { font-size: 0.82rem; color: var(--ink-dim); line-height: 1.75; }
 
-        .service-desc {
-            font-size: 0.82rem;
-            color: var(--gray);
-            line-height: 1.75;
-        }
-
-        /* ACHIEVEMENTS */
-        .ach-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5rem;
-        }
-
+        /* ============================================================
+           RECOGNITION
+        ============================================================ */
+        .ach-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4.5rem; }
         .ach-group-title {
-            font-size: 0.62rem;
-            font-weight: 700;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: var(--gold);
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--rule);
-            margin-bottom: 0;
+            font-family: var(--font-mono);
+            font-size: 0.62rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--cyan); padding-bottom: 1rem; border-bottom: 1px solid var(--line);
         }
-
-        .ach-row {
-            display: grid;
-            grid-template-columns: 1px 1fr;
-            gap: 1.5rem;
-            padding: 1.4rem 0;
-            border-bottom: 1px solid var(--rule);
-            align-items: start;
-        }
+        .ach-row { display: grid; grid-template-columns: 14px 1fr; gap: 1.2rem; padding: 1.3rem 0; border-bottom: 1px solid var(--line); align-items: start; }
         .ach-row:last-child { border-bottom: none; }
+        .ach-tick { position: relative; align-self: stretch; }
+        .ach-tick::before { content: ''; position: absolute; top: 0.4rem; left: 4px; width: 1px; height: calc(100% - 0.4rem); background: var(--cyan-dim); }
+        .ach-tick::after { content: ''; position: absolute; top: 0.3rem; left: 0; width: 9px; height: 9px; border: 1px solid var(--cyan); transform: rotate(45deg); }
+        .ach-content h4 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; color: var(--paper); margin-bottom: 0.3rem; }
+        .ach-content p { font-size: 0.82rem; color: var(--ink-dim); line-height: 1.65; }
 
-        .ach-line {
-            background: var(--gold-dim);
-            align-self: stretch;
-            min-height: 20px;
+        .awards-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); margin-top: 4rem; background: var(--line); gap: 1px; }
+        .award-cell { background: var(--bg); padding: 1.8rem; position: relative; overflow: hidden; transition: background var(--dur-m) var(--ease); }
+        .award-cell:hover { background: var(--bg-2); }
+        .award-cell::after {
+            content: '';
+            position: absolute; top: 10px; right: 10px;
+            width: 14px; height: 14px;
+            border-top: 1px solid var(--cyan);
+            border-right: 1px solid var(--cyan);
+            opacity: 0;
+            transform: translate(-4px, 4px);
+            transition: opacity var(--dur-m) var(--ease), transform var(--dur-m) var(--ease);
         }
-
-        .ach-content h4 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.15rem;
-            font-weight: 500;
-            color: var(--white);
-            margin-bottom: 0.25rem;
-        }
-
-        .ach-content p {
-            font-size: 0.82rem;
-            color: var(--gray);
-            line-height: 1.65;
-        }
-
-        /* AWARDS GRID */
-        .awards-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            border: 1px solid var(--rule);
-            margin-top: 4rem;
-            background: var(--rule);
-            gap: 1px;
-        }
-
-        .award-cell {
-            background: var(--black);
-            padding: 2rem;
-            transition: background 0.3s;
-        }
-        .award-cell:hover { background: var(--black3); }
-
+        .award-cell:hover::after { opacity: 0.9; transform: translate(0,0); }
         .award-type {
-            font-size: 0.6rem;
-            font-weight: 700;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 0.6rem;
+            font-family: var(--font-mono);
+            font-size: 0.58rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+            color: var(--amber); margin-bottom: 0.6rem;
         }
+        .award-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; color: var(--paper); margin-bottom: 0.5rem; }
+        .award-cell p { font-size: 0.8rem; color: var(--ink-dim); line-height: 1.65; }
 
-        .award-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.15rem;
-            font-weight: 500;
-            color: var(--white);
-            margin-bottom: 0.5rem;
-        }
-
-        .award-cell p {
-            font-size: 0.8rem;
-            color: var(--gray);
-            line-height: 1.65;
-        }
-
-        /* CTA */
-        .cta {
-            border-top: 1px solid var(--rule);
-            padding: 8rem 5vw;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
+        /* ============================================================
+           CTA
+        ============================================================ */
+        .cta { border-top: 1px solid var(--line); padding: 7rem 5vw; text-align: center; position: relative; overflow: hidden; }
         .cta::before {
             content: '';
-            position: absolute;
-            bottom: 0; left: 50%;
+            position: absolute; bottom: 0; left: 50%;
             transform: translateX(-50%);
-            width: 700px; height: 400px;
-            background: radial-gradient(ellipse at bottom, rgba(201,168,76,0.05) 0%, transparent 70%);
+            width: 700px; height: 360px;
+            background: radial-gradient(ellipse at bottom, rgba(142,207,232,0.07) 0%, transparent 70%);
         }
+        .cta-ornament { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 2.2rem; }
+        .cta-orn-line { width: 70px; height: 1px; background: var(--line-strong); }
+        .cta-orn-plus { position: relative; width: 10px; height: 10px; }
+        .cta-orn-plus::before, .cta-orn-plus::after { content: ''; position: absolute; background: var(--cyan); }
+        .cta-orn-plus::before { top: 50%; left: 0; width: 100%; height: 1px; transform: translateY(-50%); }
+        .cta-orn-plus::after { left: 50%; top: 0; height: 100%; width: 1px; transform: translateX(-50%); }
 
-        .cta-ornament {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2.5rem;
-        }
-        .cta-orn-line { width: 80px; height: 1px; background: var(--gold-dim); }
-        .cta-orn-diamond { width: 5px; height: 5px; background: var(--gold); transform: rotate(45deg); }
+        .cta h2 { font-family: var(--font-display); font-size: clamp(2.2rem, 4.6vw, 4.2rem); font-weight: 700; color: var(--paper); margin-bottom: 1.4rem; position: relative; z-index: 1; }
+        .cta h2 span { color: var(--cyan-bright); }
+        .cta p { max-width: 560px; margin: 0 auto 2.8rem; font-size: 0.9rem; line-height: 1.9; color: var(--ink-dim); font-weight: 300; position: relative; z-index: 1; }
+        .cta-buttons { display: flex; gap: 1rem; justify-content: center; position: relative; z-index: 1; flex-wrap: wrap; }
 
-        .cta h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2.5rem, 5vw, 5rem);
-            font-weight: 300;
-            color: var(--white);
-            margin-bottom: 1.5rem;
-            position: relative; z-index: 1;
+        /* ============================================================
+           FOOTER / TITLE BLOCK
+        ============================================================ */
+        footer { border-top: 1px solid var(--line); padding: 0 5vw 3rem; }
+        .title-block {
+            max-width: 1320px; margin: 0 auto;
+            border: 1px solid var(--line);
+            display: grid;
+            grid-template-columns: 2fr repeat(4, 1fr);
         }
-        .cta h2 em { font-style: italic; color: var(--gold-lt); }
+        .tb-cell { padding: 1.1rem 1.4rem; border-right: 1px solid var(--line); }
+        .tb-cell:last-child { border-right: none; }
+        .tb-label {
+            font-family: var(--font-mono);
+            font-size: 0.56rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+            color: var(--ink-dim); margin-bottom: 0.35rem;
+        }
+        .tb-value { font-family: var(--font-mono); font-size: 0.76rem; color: var(--cyan-bright); letter-spacing: 0.03em; }
+        .footer-note { max-width: 1320px; margin: 1.4rem auto 0; display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.08em; color: var(--ink-dim); }
 
-        .cta p {
-            max-width: 580px;
-            margin: 0 auto 3rem;
-            font-size: 0.9rem;
-            line-height: 1.9;
-            color: var(--gray);
-            font-weight: 300;
-            position: relative; z-index: 1;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            position: relative; z-index: 1;
-        }
-
-        /* FOOTER */
-        footer {
-            border-top: 1px solid var(--rule);
-            padding: 2rem 5vw;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        footer span {
-            font-size: 0.62rem;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--gold-dim);
-        }
-
-        /* ANIMATIONS */
-        .reveal {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.85s cubic-bezier(.22,1,.36,1),
-                        transform 0.85s cubic-bezier(.22,1,.36,1);
-        }
+        /* ============================================================
+           REVEAL / MOTION
+        ============================================================ */
+        .reveal { opacity: 0; transform: translateY(22px); transition: opacity var(--dur-s) var(--ease), transform var(--dur-s) var(--ease); }
         .reveal.visible { opacity: 1; transform: translateY(0); }
         .d1 { transition-delay: 0.1s; }
         .d2 { transition-delay: 0.2s; }
         .d3 { transition-delay: 0.3s; }
 
-        @keyframes riseIn {
-            from { opacity: 0; transform: translateY(18px); }
-            to   { opacity: 1; transform: translateY(0); }
+        @keyframes riseIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .hero-eyebrow, .hero-name, .hero-tagline, .hero-sub, .hero-meta, .hero-links,
+            .reveal { animation: none !important; opacity: 1 !important; transform: none !important; transition: none !important; }
+            .sheet-rule { transform: scaleX(1) !important; transition: none !important; }
+            .scroll-cue-line::after { animation: none !important; }
         }
 
-        /* RESPONSIVE */
+        /* ============================================================
+           RESPONSIVE
+        ============================================================ */
         @media (max-width: 960px) {
-            nav { padding: 1.4rem 6vw; }
             .nav-links { display: none; }
+            .nav-toggle { display: flex; }
             .hero { padding: 0 6vw 5rem; }
-            .sec-wrap { padding: 5rem 6vw; }
+            .hero-coord, .hero-coord-r, .hero-readout { display: none; }
+            .sheet { padding: 4.5rem 6vw; }
+            .sheet-head { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .sheet-ref { text-align: left; }
             .academic-grid { grid-template-columns: 1fr; }
             .academic-block { border-right: none !important; }
-            .featured-project { padding: 2.2rem 1.6rem; }
-            .featured-stats { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+            .featured-project { padding: 2rem 1.5rem; }
+            .stamp { position: static; display: inline-block; margin-bottom: 1.4rem; transform: rotate(-3deg); }
+            .featured-stats { grid-template-columns: 1fr 1fr; gap: 1.4rem; }
             .projects-grid { grid-template-columns: 1fr; }
             .project-card { border-right: none !important; }
-            .project-card:nth-last-child(-n+2) { border-bottom: 1px solid var(--rule); }
+            .project-card:nth-last-child(-n+2) { border-bottom: 1px solid var(--line); }
             .project-card:last-child { border-bottom: none !important; }
             .ach-layout { grid-template-columns: 1fr; gap: 3rem; }
             .awards-grid { grid-template-columns: 1fr 1fr; }
             .service-grid { grid-template-columns: 1fr; }
-            .service-card { border-right: none; border-bottom: 1px solid var(--rule); }
+            .service-card { border-right: none; border-bottom: 1px solid var(--line); }
             .service-card:last-child { border-bottom: none; }
             .ltable thead { display: none; }
-            .ltable tbody tr { display: grid; padding: 1.5rem; border-bottom: 1px solid var(--rule); }
+            .ltable tbody tr { display: grid; padding: 1.4rem; }
             .ltable td { padding: 0.2rem 0; }
             .t-meta { text-align: left; }
-            footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+            .title-block { grid-template-columns: 1fr 1fr; }
+            .tb-cell:nth-child(2n) { border-right: none; }
+            .tb-cell { border-bottom: 1px solid var(--line); }
+            .footer-note { flex-direction: column; gap: 0.4rem; }
+        }
+        @media (max-width: 560px) {
+            .hero-meta { gap: 1.8rem; }
+            .title-block { grid-template-columns: 1fr; }
+            .tb-cell { border-right: none; }
         }
     </style>
 </head>
 <body>
 
+<div class="ruler"><div class="ruler-fill" id="rulerFill"></div></div>
+
 <nav>
-    <a href="#home" class="nav-name">Aatiesh</a>
-    <ul class="nav-links">
-        <li><a href="#academic">Academic</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#leadership">Leadership</a></li>
-        <li><a href="#recognition">Recognition</a></li>
-        <li><a href="#contact">Contact</a></li>
+    <a href="#home" class="nav-brand">
+        <svg width="16" height="16" viewBox="0 0 100 100"><circle cx="50" cy="50" r="26" fill="none" stroke="#8ecfe8" stroke-width="6"/><line x1="50" y1="2" x2="50" y2="26" stroke="#8ecfe8" stroke-width="6"/><line x1="50" y1="74" x2="50" y2="98" stroke="#8ecfe8" stroke-width="6"/><line x1="2" y1="50" x2="26" y2="50" stroke="#8ecfe8" stroke-width="6"/><line x1="74" y1="50" x2="98" y2="50" stroke="#8ecfe8" stroke-width="6"/></svg>
+        <span>AATIESH</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#academic" data-sheet="academic"><b>01</b>ACADEMIC</a></li>
+        <li><a href="#projects" data-sheet="projects"><b>02</b>PROJECTS</a></li>
+        <li><a href="#leadership" data-sheet="leadership"><b>03</b>LEADERSHIP</a></li>
+        <li><a href="#recognition" data-sheet="recognition"><b>04</b>RECOGNITION</a></li>
+        <li><a href="#contact" data-sheet="contact"><b>→</b>CONTACT</a></li>
     </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+    </button>
 </nav>
+
+<div class="mobile-panel" id="mobilePanel">
+    <button class="mobile-close" id="mobileClose">✕ CLOSE</button>
+    <ul>
+        <li><a href="#academic"><b>01</b>Academic</a></li>
+        <li><a href="#projects"><b>02</b>Projects</a></li>
+        <li><a href="#leadership"><b>03</b>Leadership</a></li>
+        <li><a href="#recognition"><b>04</b>Recognition</a></li>
+        <li><a href="#contact"><b>→</b>Contact</a></li>
+    </ul>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="home">
-    <div class="hero-bg"></div>
-    <div class="hero-corner"></div>
-    <div class="hero-corner-bl"></div>
-
-    <p class="hero-label">Student Portfolio &nbsp;&middot;&nbsp; Year 13 &nbsp;&middot;&nbsp; Auckland, New Zealand</p>
-
-    <h1 class="hero-name">
-        Aatiesh<br>
-        <em>&mdash; driven by curiosity,</em><br>
-        defined by action.
-    </h1>
-
-    <div class="hero-divider">
-        <div class="hero-divider-line"></div>
-        <div class="hero-divider-diamond"></div>
+    <div class="frame-marks">
+        <span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span>
     </div>
+    <p class="hero-coord">36.8485° S · 174.7633° E<br>AUCKLAND — NEW ZEALAND</p>
+    <p class="hero-coord-r">SCALE — N.T.S.<br>REV — 2026.A</p>
+
+    <p class="hero-eyebrow">// STUDENT PORTFOLIO — YEAR 13</p>
+
+    <h1 class="hero-name">AATIESH</h1>
+    <p class="hero-tagline">Driven by curiosity, defined by action.</p>
 
     <p class="hero-sub">
         A Year 13 student approaching engineering, science, and leadership as interconnected disciplines.
@@ -897,41 +991,32 @@
     </p>
 
     <div class="hero-meta">
-        <div class="hero-meta-item">
-            <span class="meta-num">250+</span>
-            <span class="meta-label">Volunteer Hours</span>
-        </div>
-        <div class="meta-sep"></div>
-        <div class="hero-meta-item">
-            <span class="meta-num">8+</span>
-            <span class="meta-label">Leadership Roles</span>
-        </div>
-        <div class="meta-sep"></div>
-        <div class="hero-meta-item">
-            <span class="meta-num">3 yrs</span>
-            <span class="meta-label">Air Cadet</span>
-        </div>
-        <div class="meta-sep"></div>
-        <div class="hero-meta-item">
-            <span class="meta-num">L1 &amp; L2</span>
-            <span class="meta-label">Excellence Endorsed</span>
-        </div>
+        <div class="hero-meta-item"><span class="meta-num">250+</span><span class="meta-label">Volunteer Hours</span></div>
+        <div class="hero-meta-item"><span class="meta-num">8+</span><span class="meta-label">Leadership Roles</span></div>
+        <div class="hero-meta-item"><span class="meta-num">3 yrs</span><span class="meta-label">Air Cadet</span></div>
+        <div class="hero-meta-item"><span class="meta-num">L1 &amp; L2</span><span class="meta-label">Excellence Endorsed</span></div>
     </div>
 
     <div class="hero-links">
-        <a href="mailto:aatiesh99@gmail.com" class="btn btn-gold">Get In Touch</a>
-        <a href="https://github.com/thelonMusk" target="_blank" class="btn btn-ghost">GitHub</a>
+        <a href="mailto:aatiesh99@gmail.com" class="btn btn-fill">Get In Touch →</a>
+        <a href="https://github.com/thelonMusk" target="_blank" class="btn btn-outline">GitHub</a>
     </div>
+
+    <div class="scroll-cue"><div class="scroll-cue-line"></div>SCROLL</div>
+    <p class="hero-readout mono" id="cursorReadout">X 0000 · Y 0000</p>
 </section>
 
 <!-- ACADEMIC -->
-<div class="sec-wrap" id="academic">
-    <div class="sec-inner">
-        <div class="section-header reveal">
-            <span class="section-num">i.</span>
-            <h2 class="section-title">Academic <em>Profile</em></h2>
-            <div class="section-rule"></div>
+<div class="sheet" id="academic">
+    <div class="sheet-inner">
+        <div class="sheet-head reveal">
+            <div class="sheet-head-left">
+                <span class="sheet-tag">SHEET 01</span>
+                <h2 class="sheet-title">Academic <span>Profile</span></h2>
+            </div>
+            <div class="sheet-ref">SCALE — N.T.S.<br>REV — A</div>
         </div>
+        <div class="sheet-rule-wrap reveal-line"><div class="sheet-rule"></div></div>
 
         <div class="academic-grid reveal d1">
             <div class="academic-block">
@@ -944,7 +1029,6 @@
                     <li>Excellence in written and analytical tasks</li>
                 </ul>
             </div>
-
             <div class="academic-block">
                 <div class="academic-label">Completed</div>
                 <div class="academic-title">NCEA Level 2</div>
@@ -956,7 +1040,6 @@
                     <li>Strong external examination performance</li>
                 </ul>
             </div>
-
             <div class="academic-block">
                 <div class="academic-label">In Progress</div>
                 <div class="academic-title">NCEA Level 3</div>
@@ -969,14 +1052,13 @@
                     <li>Product Design</li>
                 </ul>
             </div>
-
             <div class="academic-block">
                 <div class="academic-label">Appointed Roles</div>
                 <div class="academic-title">Ambassadorships</div>
                 <br>
                 <ul class="alist">
                     <li>SVA Ambassador</li>
-                    <li>IPhyC &mdash; International Physics Ambassador</li>
+                    <li>IPhyC — International Physics Ambassador</li>
                     <li>Kea Kainga House Captain</li>
                     <li>Executive Council Member</li>
                 </ul>
@@ -986,16 +1068,20 @@
 </div>
 
 <!-- PROJECTS -->
-<div class="sec-wrap" id="projects">
-    <div class="sec-inner">
-        <div class="section-header reveal">
-            <span class="section-num">ii.</span>
-            <h2 class="section-title">Engineering <em>Projects</em></h2>
-            <div class="section-rule"></div>
+<div class="sheet" id="projects">
+    <div class="sheet-inner">
+        <div class="sheet-head reveal">
+            <div class="sheet-head-left">
+                <span class="sheet-tag">SHEET 02</span>
+                <h2 class="sheet-title">Engineering <span>Projects</span></h2>
+            </div>
+            <div class="sheet-ref">SCALE — N.T.S.<br>REV — A</div>
         </div>
+        <div class="sheet-rule-wrap reveal-line"><div class="sheet-rule"></div></div>
 
         <div class="featured-project reveal">
-            <div class="featured-tag">Flagship Build &middot; NCEA L3 Digital Technologies</div>
+            <div class="stamp">Operational</div>
+            <div class="featured-tag">Flagship Build · NCEA L3 Digital Technologies</div>
             <h3>Tago — RFID Attendance System</h3>
             <p>
                 An RFID-based attendance platform for schools, built for an NCEA Level 3 assessment and taken
@@ -1007,22 +1093,13 @@
                 emergency roll-call system with live cross-device sync, and offline scan buffering for when
                 classroom Wi-Fi drops out. The React dashboard runs on ten live Supabase Realtime subscriptions,
                 is role-gated at the route level, and ships with a Playwright regression suite enforcing its own
-                design rules and accessibility fallbacks &mdash; alongside a public privacy policy mapped against
+                design rules and accessibility fallbacks — alongside a public privacy policy mapped against
                 all 13 principles of the NZ Privacy Act 2020.
             </p>
             <div class="featured-stats">
-                <div>
-                    <div class="featured-stat-num">10</div>
-                    <div class="featured-stat-label">Schema migrations built beyond the base 8-table starter</div>
-                </div>
-                <div>
-                    <div class="featured-stat-num">3</div>
-                    <div class="featured-stat-label">Independent authorisation layers &mdash; API, RLS, and route guard</div>
-                </div>
-                <div>
-                    <div class="featured-stat-num">13</div>
-                    <div class="featured-stat-label">NZ Privacy Act principles mapped to real system behaviour</div>
-                </div>
+                <div><div class="featured-stat-num count" data-target="10">0</div><div class="featured-stat-label">Schema migrations built beyond the base 8-table starter</div></div>
+                <div><div class="featured-stat-num count" data-target="3">0</div><div class="featured-stat-label">Independent authorisation layers — API, RLS, and route guard</div></div>
+                <div><div class="featured-stat-num count" data-target="13">0</div><div class="featured-stat-label">NZ Privacy Act principles mapped to real system behaviour</div></div>
             </div>
             <div class="tech-tags">
                 <span class="tech-tag">Node.js / Express</span>
@@ -1036,56 +1113,44 @@
 
         <div class="projects-grid reveal d1">
             <div class="project-card">
-                <div class="project-index">Project 01</div>
-                <h3>Low-Emission Jet Engine R&D</h3>
-                <p>Independent research into reduced-emission propulsion concepts. Analysing efficiency trade-offs, materials constraints, and environmental impact through a systems-level analytical approach &mdash; connecting classroom physics with real engineering problems.</p>
-                <div class="project-footer">
-                    <div class="project-footer-label">Status</div>
-                    <p>Active research and development &mdash; ongoing</p>
-                </div>
+                <div class="project-index">FIG. 01</div>
+                <h3>Low-Emission Jet Engine R&amp;D</h3>
+                <p>Independent research into reduced-emission propulsion concepts. Analysing efficiency trade-offs, materials constraints, and environmental impact through a systems-level analytical approach — connecting classroom physics with real engineering problems.</p>
+                <div class="project-footer"><div class="project-footer-label">Status</div><p>Active research and development — ongoing</p></div>
             </div>
-
             <div class="project-card">
-                <div class="project-index">Project 02</div>
+                <div class="project-index">FIG. 02</div>
                 <h3>NASA Space Apps Challenge</h3>
                 <p>Led a multidisciplinary team of 4 to 6 members through a global research and prototyping challenge. Responsible for defining the problem space, structuring the team's workload, and delivering a fully functional prototype under strict time constraints.</p>
-                <div class="project-footer">
-                    <div class="project-footer-label">Outcome</div>
-                    <p>Working prototype demonstrating full systems integration</p>
-                </div>
+                <div class="project-footer"><div class="project-footer-label">Outcome</div><p>Working prototype demonstrating full systems integration</p></div>
             </div>
-
             <div class="project-card">
-                <div class="project-index">Project 03</div>
+                <div class="project-index">FIG. 03</div>
                 <h3>Computer Vision Hand Tracker</h3>
                 <p>Built a real-time hand tracking system with emotion inference capabilities from scratch in Python. Integrated computer vision algorithms with live input processing and optimised the pipeline for consistent low-latency performance.</p>
-                <div class="project-footer">
-                    <div class="project-footer-label">Technologies</div>
-                    <p>Python, computer vision, real-time processing pipelines</p>
-                </div>
+                <div class="project-footer"><div class="project-footer-label">Technologies</div><p>Python, computer vision, real-time processing pipelines</p></div>
             </div>
-
             <div class="project-card">
-                <div class="project-index">Project 04</div>
+                <div class="project-index">FIG. 04</div>
                 <h3>Multi-Institution Engineering Challenges</h3>
                 <p>Team Leader for both the University of Auckland Engineering Challenge and the University of Canterbury Mechatronics Challenge. Led research-driven design phases, prototype development, and cross-functional system integration under competitive conditions.</p>
-                <div class="project-footer">
-                    <div class="project-footer-label">Scope</div>
-                    <p>Mechatronics, embedded systems, and robotics across two institutions</p>
-                </div>
+                <div class="project-footer"><div class="project-footer-label">Scope</div><p>Mechatronics, embedded systems, and robotics across two institutions</p></div>
             </div>
         </div>
     </div>
 </div>
 
 <!-- LEADERSHIP -->
-<div class="sec-wrap" id="leadership">
-    <div class="sec-inner">
-        <div class="section-header reveal">
-            <span class="section-num">iii.</span>
-            <h2 class="section-title">Leadership <em>&amp; Service</em></h2>
-            <div class="section-rule"></div>
+<div class="sheet" id="leadership">
+    <div class="sheet-inner">
+        <div class="sheet-head reveal">
+            <div class="sheet-head-left">
+                <span class="sheet-tag">SHEET 03</span>
+                <h2 class="sheet-title">Leadership <span>&amp; Service</span></h2>
+            </div>
+            <div class="sheet-ref">SCALE — N.T.S.<br>REV — A</div>
         </div>
+        <div class="sheet-rule-wrap reveal-line"><div class="sheet-rule"></div></div>
 
         <div class="reveal d1">
             <table class="ltable">
@@ -1136,7 +1201,7 @@
                     </tr>
                     <tr>
                         <td><div class="t-role">House Captain</div></td>
-                        <td><div class="t-org">Kea Kainga &mdash; Student Leader</div></td>
+                        <td><div class="t-org">Kea Kainga — Student Leader</div></td>
                         <td><div class="t-desc">Elected house captain with responsibilities covering school culture, student wellbeing, event planning, and cross-house representation. A pastoral and organisational leadership role operating at school-wide level.</div></td>
                         <td><div class="t-meta">Current</div></td>
                     </tr>
@@ -1155,31 +1220,26 @@
                     <tr>
                         <td><div class="t-role">Air Cadet</div></td>
                         <td><div class="t-org">New Zealand Air Cadets</div></td>
-                        <td><div class="t-desc">Three years of active participation in the NZAC programme. Developing aviation knowledge, discipline, and leadership through structured training &mdash; maintained consistently alongside a full academic and co-curricular schedule.</div></td>
+                        <td><div class="t-desc">Three years of active participation in the NZAC programme. Developing aviation knowledge, discipline, and leadership through structured training — maintained consistently alongside a full academic and co-curricular schedule.</div></td>
                         <td><div class="t-meta">3 Years</div></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-    </div>
-</div>
 
-<!-- SERVICE STATS -->
-<div class="sec-wrap">
-    <div class="sec-inner">
-        <div class="service-grid reveal">
+        <div class="service-grid reveal d2">
             <div class="service-card">
-                <div class="service-num">250+</div>
+                <div class="service-num count" data-target="250" data-suffix="+">0</div>
                 <div class="service-label">Volunteer Hours</div>
                 <div class="service-desc">Documented service hours logged through Interact Club community initiatives, school programmes, and independent volunteering over two years of sustained contribution.</div>
             </div>
             <div class="service-card">
-                <div class="service-num">50+</div>
+                <div class="service-num count" data-target="50" data-suffix="+">0</div>
                 <div class="service-label">SPECtrum Members</div>
                 <div class="service-desc">The largest STEM club in school, grown under active leadership into a central hub for engineering and science co-curricular activity with ongoing project pipelines.</div>
             </div>
             <div class="service-card">
-                <div class="service-num">3 yrs</div>
+                <div class="service-num count" data-target="3" data-suffix=" yrs">0</div>
                 <div class="service-label">Air Cadet Service</div>
                 <div class="service-desc">Three continuous years in the New Zealand Air Cadet programme, combining aviation training, discipline, and leadership development alongside full academic commitments.</div>
             </div>
@@ -1188,172 +1248,177 @@
 </div>
 
 <!-- RECOGNITION -->
-<div class="sec-wrap" id="recognition">
-    <div class="sec-inner">
-        <div class="section-header reveal">
-            <span class="section-num">iv.</span>
-            <h2 class="section-title">Honours <em>&amp; Recognition</em></h2>
-            <div class="section-rule"></div>
+<div class="sheet" id="recognition">
+    <div class="sheet-inner">
+        <div class="sheet-head reveal">
+            <div class="sheet-head-left">
+                <span class="sheet-tag">SHEET 04</span>
+                <h2 class="sheet-title">Honours <span>&amp; Recognition</span></h2>
+            </div>
+            <div class="sheet-ref">SCALE — N.T.S.<br>REV — A</div>
         </div>
+        <div class="sheet-rule-wrap reveal-line"><div class="sheet-rule"></div></div>
 
         <div class="ach-layout reveal d1">
             <div>
                 <div class="ach-group-title">Competitions &amp; Olympiads</div>
-                <div class="ach-row">
-                    <div class="ach-line"></div>
-                    <div class="ach-content">
-                        <h4>IOAA Semi-Finalist</h4>
-                        <p>International Olympiad on Astronomy and Astrophysics &mdash; qualified to the semi-finals, representing a high level of achievement in astrophysics and observational astronomy.</p>
-                    </div>
-                </div>
-                <div class="ach-row">
-                    <div class="ach-line"></div>
-                    <div class="ach-content">
-                        <h4>NZOAA Participant</h4>
-                        <p>New Zealand Olympiad in Astronomy and Astrophysics &mdash; selected to participate in the national-level olympiad programme.</p>
-                    </div>
-                </div>
-                <div class="ach-row">
-                    <div class="ach-line"></div>
-                    <div class="ach-content">
-                        <h4>EPro8 &mdash; 2nd Place</h4>
-                        <p>Competitive engineering challenge recognising rapid problem-solving, prototyping, and team coordination under timed, high-pressure conditions.</p>
-                    </div>
-                </div>
-                <div class="ach-row">
-                    <div class="ach-line"></div>
-                    <div class="ach-content">
-                        <h4>Hackclub Campfire &mdash; Organiser's Pick</h4>
-                        <p>Selected by organisers for a creative and technically original submission &mdash; an independently developed game project.</p>
-                    </div>
-                </div>
-                <div class="ach-row">
-                    <div class="ach-line"></div>
-                    <div class="ach-content">
-                        <h4>Re:Draft &mdash; Competition Winner</h4>
-                        <p>English writing competition recognising communication excellence and the ability to craft well-structured, persuasive written work.</p>
-                    </div>
-                </div>
-                <div class="ach-row">
-                    <div class="ach-line"></div>
-                    <div class="ach-content">
-                        <h4>NASA Space Apps &mdash; Team Lead</h4>
-                        <p>Led the school team through a global NASA hackathon, producing a research-driven prototype addressing a real-world space challenge.</p>
-                    </div>
-                </div>
+                <div class="ach-row"><div class="ach-tick"></div><div class="ach-content"><h4>IOAA Semi-Finalist</h4><p>International Olympiad on Astronomy and Astrophysics — qualified to the semi-finals, representing a high level of achievement in astrophysics and observational astronomy.</p></div></div>
+                <div class="ach-row"><div class="ach-tick"></div><div class="ach-content"><h4>NZOAA Participant</h4><p>New Zealand Olympiad in Astronomy and Astrophysics — selected to participate in the national-level olympiad programme.</p></div></div>
+                <div class="ach-row"><div class="ach-tick"></div><div class="ach-content"><h4>EPro8 — 2nd Place</h4><p>Competitive engineering challenge recognising rapid problem-solving, prototyping, and team coordination under timed, high-pressure conditions.</p></div></div>
+                <div class="ach-row"><div class="ach-tick"></div><div class="ach-content"><h4>Hackclub Campfire — Organiser's Pick</h4><p>Selected by organisers for a creative and technically original submission — an independently developed game project.</p></div></div>
+                <div class="ach-row"><div class="ach-tick"></div><div class="ach-content"><h4>Re:Draft — Competition Winner</h4><p>English writing competition recognising communication excellence and the ability to craft well-structured, persuasive written work.</p></div></div>
+                <div class="ach-row"><div class="ach-tick"></div><div class="ach-content"><h4>NASA Space Apps — Team Lead</h4><p>Led the school team through a global NASA hackathon, producing a research-driven prototype addressing a real-world space challenge.</p></div></div>
             </div>
-
             <div>
                 <div class="ach-group-title">University Engineering Challenges</div>
-                <div class="ach-row">
-                    <div class="ach-line"></div>
-                    <div class="ach-content">
-                        <h4>University of Auckland &mdash; Engineering Challenge</h4>
-                        <p>Team leader in the multi-disciplinary university engineering competition, coordinating the full design, build, and testing cycle.</p>
-                    </div>
-                </div>
-                <div class="ach-row">
-                    <div class="ach-line"></div>
-                    <div class="ach-content">
-                        <h4>University of Canterbury &mdash; Mechatronics Challenge</h4>
-                        <p>Team leader in the Canterbury mechatronics competition, focused on systems integration, robotics, and embedded control under competitive conditions.</p>
-                    </div>
-                </div>
-                <div class="ach-row">
-                    <div class="ach-line"></div>
-                    <div class="ach-content">
-                        <h4>NCEA Level 1 &mdash; Excellence Endorsed</h4>
-                        <p>Achieved Excellence Endorsement at Level 1, demonstrating consistently high performance across all assessed subjects at the national qualification level.</p>
-                    </div>
-                </div>
-                <div class="ach-row">
-                    <div class="ach-line"></div>
-                    <div class="ach-content">
-                        <h4>NCEA Level 2 &mdash; Excellence Endorsed</h4>
-                        <p>Achieved Excellence Endorsement at Level 2 with 50+ Excellence credits, maintaining a strong record of academic distinction across two levels.</p>
-                    </div>
-                </div>
+                <div class="ach-row"><div class="ach-tick"></div><div class="ach-content"><h4>University of Auckland — Engineering Challenge</h4><p>Team leader in the multi-disciplinary university engineering competition, coordinating the full design, build, and testing cycle.</p></div></div>
+                <div class="ach-row"><div class="ach-tick"></div><div class="ach-content"><h4>University of Canterbury — Mechatronics Challenge</h4><p>Team leader in the Canterbury mechatronics competition, focused on systems integration, robotics, and embedded control under competitive conditions.</p></div></div>
+                <div class="ach-row"><div class="ach-tick"></div><div class="ach-content"><h4>NCEA Level 1 — Excellence Endorsed</h4><p>Achieved Excellence Endorsement at Level 1, demonstrating consistently high performance across all assessed subjects at the national qualification level.</p></div></div>
+                <div class="ach-row"><div class="ach-tick"></div><div class="ach-content"><h4>NCEA Level 2 — Excellence Endorsed</h4><p>Achieved Excellence Endorsement at Level 2 with 50+ Excellence credits, maintaining a strong record of academic distinction across two levels.</p></div></div>
             </div>
         </div>
 
-        <!-- School Awards -->
         <div class="awards-grid reveal d2">
-            <div class="award-cell">
-                <div class="award-type">School Award</div>
-                <div class="award-title">Harakeke Award</div>
-                <p>Awarded for supporting the school in multidisciplinary ways &mdash; recognising contributions spanning academics, leadership, and community engagement.</p>
-            </div>
-            <div class="award-cell">
-                <div class="award-type">School Award</div>
-                <div class="award-title">Waka Award</div>
-                <p>Awarded for contributing to the school community across many areas, demonstrating sustained commitment to collective progress and school culture.</p>
-            </div>
-            <div class="award-cell">
-                <div class="award-type">School Award</div>
-                <div class="award-title">Service Award</div>
-                <p>Recognised for sustained community leadership and meaningful contribution to school and wider community service initiatives over an extended period.</p>
-            </div>
-            <div class="award-cell">
-                <div class="award-type">School Award</div>
-                <div class="award-title">Support Award</div>
-                <p>Acknowledged for consistent peer support and collaborative contribution, making a positive impact on those around them within the school environment.</p>
-            </div>
-            <div class="award-cell">
-                <div class="award-type">Ambassadorship</div>
-                <div class="award-title">SVA Ambassador</div>
-                <p>Appointed as an SVA Ambassador, representing student volunteering values and promoting community engagement and civic responsibility at school level.</p>
-            </div>
-            <div class="award-cell">
-                <div class="award-type">Ambassadorship</div>
-                <div class="award-title">IPhyC Ambassador</div>
-                <p>International Physics Ambassador &mdash; representing the school in the global physics community and encouraging scientific engagement among students.</p>
-            </div>
+            <div class="award-cell"><div class="award-type">School Award</div><div class="award-title">Harakeke Award</div><p>Awarded for supporting the school in multidisciplinary ways — recognising contributions spanning academics, leadership, and community engagement.</p></div>
+            <div class="award-cell"><div class="award-type">School Award</div><div class="award-title">Waka Award</div><p>Awarded for contributing to the school community across many areas, demonstrating sustained commitment to collective progress and school culture.</p></div>
+            <div class="award-cell"><div class="award-type">School Award</div><div class="award-title">Service Award</div><p>Recognised for sustained community leadership and meaningful contribution to school and wider community service initiatives over an extended period.</p></div>
+            <div class="award-cell"><div class="award-type">School Award</div><div class="award-title">Support Award</div><p>Acknowledged for consistent peer support and collaborative contribution, making a positive impact on those around them within the school environment.</p></div>
+            <div class="award-cell"><div class="award-type">Ambassadorship</div><div class="award-title">SVA Ambassador</div><p>Appointed as an SVA Ambassador, representing student volunteering values and promoting community engagement and civic responsibility at school level.</p></div>
+            <div class="award-cell"><div class="award-type">Ambassadorship</div><div class="award-title">IPhyC Ambassador</div><p>International Physics Ambassador — representing the school in the global physics community and encouraging scientific engagement among students.</p></div>
         </div>
     </div>
 </div>
 
 <!-- CTA -->
 <div class="cta" id="contact">
-    <div class="cta-ornament">
-        <div class="cta-orn-line"></div>
-        <div class="cta-orn-diamond"></div>
-        <div class="cta-orn-line"></div>
-    </div>
-    <h2 class="reveal">Open to <em>Opportunities</em></h2>
+    <div class="cta-ornament"><div class="cta-orn-line"></div><div class="cta-orn-plus"></div><div class="cta-orn-line"></div></div>
+    <h2 class="reveal">Open to <span>Opportunities</span></h2>
     <p class="reveal d1">
-        Currently seeking scholarships, grants, mentorship, and opportunities to contribute to 
-        aerospace engineering and scientific research. Available for conversations with universities, 
+        Currently seeking scholarships, grants, mentorship, and opportunities to contribute to
+        aerospace engineering and scientific research. Available for conversations with universities,
         research organisations, and industry professionals.
     </p>
     <div class="cta-buttons reveal d2">
-        <a href="mailto:aatiesh99@gmail.com" class="btn btn-gold">aatiesh99@gmail.com</a>
-        <a href="https://github.com/thelonMusk" target="_blank" class="btn btn-ghost">GitHub</a>
+        <a href="mailto:aatiesh99@gmail.com" class="btn btn-fill">aatiesh99@gmail.com</a>
+        <a href="https://github.com/thelonMusk" target="_blank" class="btn btn-outline">GitHub</a>
     </div>
 </div>
 
 <footer>
-    <span>Aatiesh &mdash; Student Portfolio &nbsp;&middot;&nbsp; 2026</span>
-    <span>Auckland, New Zealand</span>
+    <div class="title-block">
+        <div class="tb-cell"><div class="tb-label">Title</div><div class="tb-value">Aatiesh — Engineering Portfolio</div></div>
+        <div class="tb-cell"><div class="tb-label">Sheet</div><div class="tb-value">04 of 04</div></div>
+        <div class="tb-cell"><div class="tb-label">Scale</div><div class="tb-value">N.T.S.</div></div>
+        <div class="tb-cell"><div class="tb-label">Rev</div><div class="tb-value">A</div></div>
+        <div class="tb-cell"><div class="tb-label">Date</div><div class="tb-value">2026</div></div>
+    </div>
+    <div class="footer-note">
+        <span>Aatiesh — Student Portfolio · 2026</span>
+        <span>Auckland, New Zealand · 36.8485° S 174.7633° E</span>
+    </div>
 </footer>
 
 <script>
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // reveal on scroll
+    const reveals = document.querySelectorAll('.reveal, .reveal-line');
+    const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
+                revealObserver.unobserve(entry.target);
             }
         });
     }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-    reveals.forEach(el => observer.observe(el));
+    reveals.forEach(el => revealObserver.observe(el));
 
+    // count-up numbers
+    const counters = document.querySelectorAll('.count');
+    const countObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            const target = parseInt(el.dataset.target, 10);
+            const suffix = el.dataset.suffix || '+';
+            countObserver.unobserve(el);
+            if (reduceMotion) { el.textContent = target + suffix; return; }
+            const duration = 1200;
+            const start = performance.now();
+            function tick(now) {
+                const p = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - p, 3);
+                el.textContent = Math.round(eased * target) + suffix;
+                if (p < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        });
+    }, { threshold: 0.5 });
+    counters.forEach(el => countObserver.observe(el));
+
+    // smooth anchor scroll
     document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', e => {
             const target = document.querySelector(a.getAttribute('href'));
-            if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+                closeMobile();
+            }
         });
     });
+
+    // scroll progress ruler
+    const rulerFill = document.getElementById('rulerFill');
+    function updateRuler() {
+        const h = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = h > 0 ? (window.scrollY / h) * 100 : 0;
+        rulerFill.style.width = pct + '%';
+    }
+    window.addEventListener('scroll', updateRuler, { passive: true });
+    updateRuler();
+
+    // active nav sheet
+    const sheetEls = ['academic','projects','leadership','recognition','contact']
+        .map(id => document.getElementById(id)).filter(Boolean);
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const id = entry.target.id;
+            const link = document.querySelector('.nav-links a[data-sheet="' + id + '"]');
+            if (!link) return;
+            if (entry.isIntersecting) {
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            }
+        });
+    }, { rootMargin: '-40% 0px -50% 0px' });
+    sheetEls.forEach(el => navObserver.observe(el));
+
+    // cursor readout (desktop only)
+    const readout = document.getElementById('cursorReadout');
+    const heroEl = document.getElementById('home');
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && readout && heroEl) {
+        heroEl.addEventListener('mousemove', (e) => {
+            const r = heroEl.getBoundingClientRect();
+            const x = Math.round(((e.clientX - r.left) / r.width) * 9999);
+            const y = Math.round(((e.clientY - r.top) / r.height) * 9999);
+            readout.textContent = 'X ' + String(x).padStart(4, '0') + ' · Y ' + String(y).padStart(4, '0');
+        });
+    } else if (readout) {
+        readout.style.display = 'none';
+    }
+
+    // mobile menu
+    const navToggle = document.getElementById('navToggle');
+    const mobilePanel = document.getElementById('mobilePanel');
+    const mobileClose = document.getElementById('mobileClose');
+    function closeMobile() { mobilePanel.classList.remove('open'); document.body.style.overflow = ''; }
+    navToggle.addEventListener('click', () => {
+        mobilePanel.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    });
+    mobileClose.addEventListener('click', closeMobile);
 </script>
 
 </body>
