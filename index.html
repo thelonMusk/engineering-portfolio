@@ -249,6 +249,7 @@
             padding: 0 5vw 6.5rem;
             position: relative;
             overflow: hidden;
+            isolation: isolate;
         }
 
         .hero-coord {
@@ -309,7 +310,7 @@
             font-style: normal;
             color: var(--cyan-bright);
             font-size: clamp(1.1rem, 2.2vw, 1.6rem);
-            margin-bottom: 2.2rem;
+            margin-bottom: 1.5rem;
             opacity: 0;
             animation: riseIn 0.9s 0.5s var(--ease) forwards;
         }
@@ -322,7 +323,7 @@
             color: var(--ink);
             margin-bottom: 3rem;
             opacity: 0;
-            animation: riseIn 0.9s 0.65s var(--ease) forwards;
+            animation: riseIn 0.9s 0.8s var(--ease) forwards;
         }
 
         .hero-meta {
@@ -333,7 +334,7 @@
             padding-top: 2rem;
             border-top: 1px dashed var(--line);
             opacity: 0;
-            animation: riseIn 0.9s 0.8s var(--ease) forwards;
+            animation: riseIn 0.9s 0.95s var(--ease) forwards;
         }
 
         .hero-meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
@@ -359,7 +360,7 @@
             gap: 1rem;
             margin-top: 2.6rem;
             opacity: 0;
-            animation: riseIn 0.9s 0.95s var(--ease) forwards;
+            animation: riseIn 0.9s 1.1s var(--ease) forwards;
         }
 
         .btn {
@@ -415,6 +416,197 @@
             0% { top: -100%; }
             60% { top: 100%; }
             100% { top: 100%; }
+        }
+
+        /* ============================================================
+           HERO — TOPOGRAPHY BACKGROUND (React Bits: Topography, ported to vanilla JS + ogl)
+        ============================================================ */
+        .topography-container { position: relative; width: 100%; height: 100%; overflow: hidden; }
+        .topography-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+        }
+
+        /* ============================================================
+           HERO — SPLIT-FLAP STATUS BOARD (React Bits: SplitFlapText, ported to vanilla JS)
+        ============================================================ */
+        .hero-focus {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: riseIn 0.9s 0.65s var(--ease) forwards;
+        }
+        .hero-focus-label {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: var(--cyan-dim);
+        }
+
+        .split-flap-text {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--split-flap-gap, 6px);
+            color: var(--split-flap-text-color, #f8fafc);
+            font-family: 'SFMono-Regular', 'Roboto Mono', 'Cascadia Code', 'Liberation Mono', Menlo, monospace;
+            font-size: var(--split-flap-font-size, 52px);
+            font-weight: 760;
+            line-height: 1;
+            letter-spacing: 0.035em;
+            white-space: pre;
+            user-select: none;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .split-flap-text__tile {
+            position: relative;
+            width: 0.78em;
+            height: 1.08em;
+            overflow: hidden;
+            border-radius: var(--split-flap-radius, 8px);
+            background:
+                radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.16), transparent 44%),
+                linear-gradient(
+                    180deg,
+                    color-mix(in srgb, var(--split-flap-tile-color, #111827) 82%, white),
+                    var(--split-flap-tile-color, #111827)
+                );
+            box-shadow:
+                0 0.035em 0.08em rgba(255, 255, 255, 0.08) inset,
+                0 -0.05em 0.1em rgba(0, 0, 0, 0.38) inset,
+                0 0.16em 0.38em rgba(0, 0, 0, 0.28);
+            perspective: 520px;
+            transform-style: preserve-3d;
+            isolation: isolate;
+        }
+
+        .split-flap-text__tile::before {
+            content: '';
+            position: absolute;
+            z-index: 8;
+            top: calc(50% - 0.5px);
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.18) 18%,
+                rgba(0, 0, 0, 0.64) 50%,
+                rgba(255, 255, 255, 0.14) 82%,
+                transparent
+            );
+            box-shadow:
+                0 -1px 0 rgba(255, 255, 255, 0.08),
+                0 1px 0 rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+        }
+
+        .split-flap-text__tile::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 9;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: inherit;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2) inset;
+            pointer-events: none;
+        }
+
+        .split-flap-text__half,
+        .split-flap-text__flap {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            overflow: hidden;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.07), transparent 34%), var(--split-flap-tile-color, #111827);
+            backface-visibility: hidden;
+        }
+
+        .split-flap-text__half--top,
+        .split-flap-text__flap--front {
+            top: 0;
+        }
+
+        .split-flap-text__half--bottom,
+        .split-flap-text__flap--back {
+            bottom: 0;
+        }
+
+        .split-flap-text__half--bottom,
+        .split-flap-text__flap--back {
+            background:
+                linear-gradient(0deg, rgba(255, 255, 255, 0.06), transparent 38%),
+                color-mix(in srgb, var(--split-flap-tile-color, #111827) 92%, black);
+        }
+
+        .split-flap-text__char {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 200%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--split-flap-text-color, #f8fafc);
+            text-shadow:
+                0 0.025em 0 rgba(255, 255, 255, 0.16),
+                0 0.09em 0.16em rgba(0, 0, 0, 0.42);
+        }
+
+        .split-flap-text__half--top .split-flap-text__char,
+        .split-flap-text__flap--front .split-flap-text__char {
+            top: 0;
+        }
+
+        .split-flap-text__half--bottom .split-flap-text__char,
+        .split-flap-text__flap--back .split-flap-text__char {
+            bottom: 0;
+        }
+
+        .split-flap-text__flap {
+            z-index: 6;
+            will-change: transform, filter;
+            transform-style: preserve-3d;
+        }
+
+        .split-flap-text__flap--front {
+            transform-origin: center bottom;
+            animation: split-flap-front var(--split-flap-flip-duration, 0.12s) cubic-bezier(0.23, 1, 0.32, 1) both;
+        }
+
+        .split-flap-text__flap--back {
+            transform-origin: center top;
+            transform: rotateX(90deg);
+            animation: split-flap-back var(--split-flap-flip-duration, 0.12s) cubic-bezier(0.23, 1, 0.32, 1) both;
+        }
+
+        @keyframes split-flap-front {
+            0% { transform: rotateX(0deg); filter: brightness(1.08); }
+            100% { transform: rotateX(-90deg); filter: brightness(0.52); }
+        }
+
+        @keyframes split-flap-back {
+            0%, 45% { transform: rotateX(90deg); filter: brightness(0.58); }
+            100% { transform: rotateX(0deg); filter: brightness(1); }
+        }
+
+        .hero-focus .split-flap-text {
+            --split-flap-tile-color: var(--bg-3);
+            --split-flap-text-color: var(--cyan-bright);
+            --split-flap-radius: 2px;
+            --split-flap-gap: 3px;
+            --split-flap-font-size: clamp(0.85rem, 1.7vw, 1.15rem);
+            --split-flap-flip-duration: 0.13s;
+            font-family: var(--font-mono);
+            font-weight: 600;
+            letter-spacing: 0.02em;
         }
 
         /* ============================================================
@@ -896,6 +1088,8 @@
             .reveal { animation: none !important; opacity: 1 !important; transform: none !important; transition: none !important; }
             .sheet-rule { transform: scaleX(1) !important; transition: none !important; }
             .scroll-cue-line::after { animation: none !important; }
+            .hero-focus { animation: none !important; opacity: 1 !important; }
+            .split-flap-text__flap { animation: none !important; }
         }
 
         /* ============================================================
@@ -937,6 +1131,9 @@
             .title-block { grid-template-columns: 1fr; }
             .tb-cell { border-right: none; }
         }
+        @media (max-height: 900px) {
+            .hero-coord, .hero-coord-r { display: none; }
+        }
     </style>
 </head>
 <body>
@@ -973,6 +1170,7 @@
 
 <!-- HERO -->
 <section class="hero" id="home">
+    <div class="topography-bg" id="topographyBg"></div>
     <div class="frame-marks">
         <span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span>
     </div>
@@ -983,6 +1181,11 @@
 
     <h1 class="hero-name">AATIESH</h1>
     <p class="hero-tagline">Driven by curiosity, defined by action.</p>
+
+    <div class="hero-focus">
+        <span class="hero-focus-label">// CURRENT FOCUS</span>
+        <div class="split-flap-text" id="splitFlap" role="text"></div>
+    </div>
 
     <p class="hero-sub">
         A Year 13 student approaching engineering, science, and leadership as interconnected disciplines.
@@ -1409,6 +1612,229 @@
         readout.style.display = 'none';
     }
 
+    // split-flap status board (vanilla port of React Bits' SplitFlapText)
+    class SplitFlapBoard {
+        constructor(container, opts) {
+            this.container = container;
+            this.flipDuration = opts.flipDuration ?? 0.12;
+            this.stagger = opts.stagger ?? 0.06;
+            this.cycleDelay = opts.cycleDelay ?? 2400;
+            this.charset = this.resolveCharset(opts.charset ?? 'alphanumeric');
+            this.flipsPerChar = Math.max(0, Math.floor(opts.flipsPerChar ?? 8));
+            this.loop = opts.loop ?? true;
+            this.reduceMotion = !!opts.reduceMotion;
+
+            const words = opts.words && opts.words.length ? opts.words : ['LOADING'];
+            const longest = words.reduce((max, w) => Math.max(max, String(w).length), 1);
+            this.width = Math.max(1, Math.ceil(opts.padTo || 0), longest);
+            this.phrases = words.map(w => this.normalize(w));
+
+            this.tileEls = [];
+            this.phraseIndex = 0;
+            this.rafId = null;
+            this.timerId = null;
+            this.currentText = '';
+
+            this.buildDom();
+        }
+
+        resolveCharset(charset) {
+            const sets = {
+                alpha: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                alphanumeric: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
+                numeric: '0123456789'
+            };
+            if (sets[charset]) return sets[charset];
+            return typeof charset === 'string' && charset.length > 0 ? charset : sets.alphanumeric;
+        }
+
+        normalize(phrase) {
+            return String(phrase ?? '').padEnd(this.width, ' ').slice(0, this.width);
+        }
+
+        sampleChar() {
+            return this.charset.charAt(Math.floor(Math.random() * this.charset.length)) || ' ';
+        }
+
+        buildSequence(target) {
+            const steps = [];
+            for (let i = 0; i < this.flipsPerChar; i++) steps.push(this.sampleChar());
+            steps.push(target);
+            return steps;
+        }
+
+        buildDom() {
+            this.container.innerHTML = '';
+            const first = this.phrases[0] || '';
+            this.currentText = first;
+            this.tileEls = [];
+            for (let i = 0; i < first.length; i++) {
+                const tile = this.createTileEl(first[i]);
+                this.container.appendChild(tile.el);
+                this.tileEls.push(tile);
+            }
+            this.container.setAttribute('aria-label', first.trimEnd());
+        }
+
+        createTileEl(ch) {
+            const el = document.createElement('span');
+            el.className = 'split-flap-text__tile';
+            el.setAttribute('aria-hidden', 'true');
+
+            const top = document.createElement('span');
+            top.className = 'split-flap-text__half split-flap-text__half--top';
+            const topChar = document.createElement('span');
+            topChar.className = 'split-flap-text__char';
+            topChar.textContent = ch === ' ' ? ' ' : ch;
+            top.appendChild(topChar);
+
+            const bottom = document.createElement('span');
+            bottom.className = 'split-flap-text__half split-flap-text__half--bottom';
+            const bottomChar = document.createElement('span');
+            bottomChar.className = 'split-flap-text__char';
+            bottomChar.textContent = ch === ' ' ? ' ' : ch;
+            bottom.appendChild(bottomChar);
+
+            el.appendChild(top);
+            el.appendChild(bottom);
+
+            return { el, top: topChar, bottom: bottomChar, front: null, back: null };
+        }
+
+        setTileChar(tile, current, next, flipping) {
+            tile.top.textContent = current === ' ' ? ' ' : current;
+            tile.bottom.textContent = (flipping ? next : current) === ' ' ? ' ' : (flipping ? next : current);
+
+            if (tile.front) { tile.el.removeChild(tile.front); tile.front = null; }
+            if (tile.back) { tile.el.removeChild(tile.back); tile.back = null; }
+
+            if (flipping) {
+                const front = document.createElement('span');
+                front.className = 'split-flap-text__flap split-flap-text__flap--front';
+                const frontChar = document.createElement('span');
+                frontChar.className = 'split-flap-text__char';
+                frontChar.textContent = current === ' ' ? ' ' : current;
+                front.appendChild(frontChar);
+
+                const back = document.createElement('span');
+                back.className = 'split-flap-text__flap split-flap-text__flap--back';
+                const backChar = document.createElement('span');
+                backChar.className = 'split-flap-text__char';
+                backChar.textContent = next === ' ' ? ' ' : next;
+                back.appendChild(backChar);
+
+                tile.el.appendChild(front);
+                tile.el.appendChild(back);
+                tile.front = front;
+                tile.back = back;
+            }
+        }
+
+        animateTo(targetPhrase) {
+            if (this.reduceMotion) {
+                this.currentText = targetPhrase;
+                for (let i = 0; i < this.tileEls.length; i++) {
+                    this.setTileChar(this.tileEls[i], targetPhrase[i] || ' ', targetPhrase[i] || ' ', false);
+                }
+                return 0;
+            }
+
+            const fromPhrase = this.normalize(this.currentText);
+            const flipMs = Math.max(40, this.flipDuration * 1000);
+            const staggerMs = Math.max(0, this.stagger * 1000);
+
+            const plans = [];
+            for (let i = 0; i < targetPhrase.length; i++) {
+                const fromChar = fromPhrase[i] || ' ';
+                const targetChar = targetPhrase[i];
+                if (fromChar === targetChar) continue;
+                plans.push({
+                    index: i,
+                    from: fromChar,
+                    target: targetChar,
+                    sequence: this.buildSequence(targetChar),
+                    start: i * staggerMs,
+                    step: -1,
+                    done: false
+                });
+            }
+
+            if (!plans.length) {
+                this.currentText = targetPhrase;
+                return 0;
+            }
+
+            const totalDuration = plans.reduce((max, p) => Math.max(max, p.start + p.sequence.length * flipMs), 0);
+            const startedAt = performance.now();
+
+            const tick = (now) => {
+                const elapsed = now - startedAt;
+                let shouldContinue = false;
+
+                plans.forEach(plan => {
+                    const localElapsed = elapsed - plan.start;
+                    if (localElapsed < 0) { shouldContinue = true; return; }
+                    const step = Math.floor(localElapsed / flipMs);
+                    if (step < plan.sequence.length) {
+                        shouldContinue = true;
+                        if (step !== plan.step) {
+                            plan.step = step;
+                            const current = step === 0 ? plan.from : plan.sequence[step - 1];
+                            const next = plan.sequence[step];
+                            this.setTileChar(this.tileEls[plan.index], current, next, true);
+                        }
+                    } else if (!plan.done) {
+                        plan.done = true;
+                        this.setTileChar(this.tileEls[plan.index], plan.target, plan.target, false);
+                    }
+                });
+
+                if (shouldContinue) {
+                    this.rafId = requestAnimationFrame(tick);
+                } else {
+                    this.currentText = targetPhrase;
+                    this.rafId = null;
+                }
+            };
+
+            this.rafId = requestAnimationFrame(tick);
+            return totalDuration;
+        }
+
+        start() {
+            if (this.phrases.length <= 1) return;
+            const cycleDelay = Math.max(400, this.cycleDelay);
+            const scheduleNext = (delay) => {
+                this.timerId = window.setTimeout(() => {
+                    const nextIndex = this.phraseIndex + 1;
+                    if (nextIndex >= this.phrases.length && !this.loop) return;
+                    this.phraseIndex = nextIndex % this.phrases.length;
+                    const target = this.phrases[this.phraseIndex];
+                    const duration = this.animateTo(target);
+                    this.container.setAttribute('aria-label', target.trimEnd());
+                    scheduleNext(cycleDelay + duration);
+                }, delay);
+            };
+            scheduleNext(cycleDelay);
+        }
+    }
+
+    const splitFlapEl = document.getElementById('splitFlap');
+    if (splitFlapEl) {
+        const board = new SplitFlapBoard(splitFlapEl, {
+            words: ['AEROSPACE R&D', 'FULL-STACK ENG', 'ROBOTICS TEAMS', 'COMMUNITY LEAD'],
+            flipDuration: 0.13,
+            stagger: 0.045,
+            cycleDelay: 2600,
+            charset: 'alphanumeric',
+            flipsPerChar: 6,
+            loop: true,
+            padTo: 14,
+            reduceMotion
+        });
+        board.start();
+    }
+
     // mobile menu
     const navToggle = document.getElementById('navToggle');
     const mobilePanel = document.getElementById('mobilePanel');
@@ -1419,6 +1845,326 @@
         document.body.style.overflow = 'hidden';
     });
     mobileClose.addEventListener('click', closeMobile);
+</script>
+
+<script type="module">
+    // topography background (vanilla port of React Bits' Topography, using ogl for WebGL2)
+    // requires the page to be served over http(s) — module imports are blocked on file://
+    import { Renderer, Program, Mesh, Triangle } from 'https://esm.sh/ogl@1.0.6';
+
+    const topoReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const topoContainer = document.getElementById('topographyBg');
+
+    if (topoContainer && !topoReduceMotion && window.WebGL2RenderingContext) {
+        initTopography(topoContainer);
+    }
+
+    function hexToRgb(hex) {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        if (!result) return [1, 1, 1];
+        return [parseInt(result[1], 16) / 255, parseInt(result[2], 16) / 255, parseInt(result[3], 16) / 255];
+    }
+
+    function colorModeToFloat(mode) {
+        if (mode === 'uniform') return 1.0;
+        if (mode === 'alternating') return 2.0;
+        return 0.0;
+    }
+
+    function initTopography(container) {
+        const options = {
+            lowColor: '#0a1420',
+            midColor: '#3f6d84',
+            highColor: '#8ecfe8',
+            speed: 0.12,
+            morphAmount: 2.2,
+            morphSpeed: 0.04,
+            bands: 3.0,
+            thickness: 0.012,
+            scale: 1.1,
+            pixelSize: 1.0,
+            glow: 0.4,
+            colorMode: 'elevation',
+            contrast: 2.6,
+            brightness: 1.0,
+            fillBands: false,
+            opacity: 0.5,
+            grain: false,
+            grainIntensity: 0.0,
+            mouseInteraction: true,
+            mouseRadius: 0.25,
+            mouseStrength: 0.3
+        };
+
+        const vertex = `#version 300 es
+in vec2 position;
+void main() {
+  gl_Position = vec4(position, 0.0, 1.0);
+}
+`;
+
+        const fragment = `#version 300 es
+precision highp float;
+uniform vec2 iResolution;
+uniform float iTime;
+uniform float uMorphAmount;
+uniform float uBands;
+uniform float uThickness;
+uniform float uScale;
+uniform float uPixelSize;
+uniform float uGlow;
+uniform float uColorMode;
+uniform float uContrast;
+uniform float uBrightness;
+uniform float uFillBands;
+uniform float uOpacity;
+uniform vec3 uLow;
+uniform vec3 uMid;
+uniform vec3 uHigh;
+uniform vec2 uMouse;
+uniform float uMouseEnabled;
+uniform float uMouseRadius;
+uniform float uMouseStrength;
+uniform float uMouseActive;
+uniform float uGrain;
+uniform float uGrainIntensity;
+uniform vec4 uCtrlA;
+uniform vec4 uCtrlB;
+uniform vec4 uCtrlC;
+uniform vec4 uCtrlD;
+out vec4 fragColor;
+
+float bez(float t, vec4 c) {
+  float w = 6.2831853 * t;
+  return 0.5 * (c.x * sin(w) + c.y * cos(w) + c.z * sin(2.0 * w) + c.w * cos(2.0 * w));
+}
+
+float field(vec2 uv) {
+  vec2 a = vec2(bez(uv.x, uCtrlA), bez(uv.x, uCtrlB));
+  vec2 b = vec2(bez(uv.y, uCtrlC), bez(uv.y, uCtrlD));
+  return distance(a, b);
+}
+
+vec3 elevationColor(float e) {
+  vec3 c = mix(uLow, uMid, smoothstep(0.0, 0.5, e));
+  c = mix(c, uHigh, smoothstep(0.5, 1.0, e));
+  return c;
+}
+
+void main() {
+  vec2 res = iResolution.xy;
+  vec2 uv = gl_FragCoord.xy / res;
+
+  vec2 suv = (uv - 0.5) / max(uScale, 0.001) + 0.5;
+
+  vec2 sampleUv = suv;
+  if (uPixelSize > 1.0) {
+    vec2 px = res / uPixelSize;
+    sampleUv = (floor(suv * px) + 0.5) / px;
+  }
+
+  float fv = field(sampleUv);
+
+  if (uMouseEnabled > 0.5) {
+    vec2 d = uv - uMouse;
+    d.x *= res.x / max(res.y, 1.0);
+    float r = max(uMouseRadius, 0.001);
+    float bump = exp(-dot(d, d) / (r * r)) * uMouseStrength * uMouseActive;
+    fv += bump;
+  }
+
+  float f = fv * uBands;
+  float frac = fract(f);
+  float lineDist = min(frac, 1.0 - frac);
+
+  float aa = fwidth(f) + 0.0001;
+  float mask = 1.0 - smoothstep(uThickness - aa, uThickness + aa, lineDist);
+
+  float glowR = uThickness + uGlow * 0.5 + aa;
+  float glow = (1.0 - smoothstep(uThickness, glowR, lineDist)) * step(0.0001, uGlow);
+
+  float elev = clamp(fv / (uMorphAmount * 2.5 + 0.001), 0.0, 1.0);
+
+  vec3 lineCol;
+  if (uColorMode < 0.5) {
+    lineCol = elevationColor(elev);
+  } else if (uColorMode < 1.5) {
+    lineCol = uMid;
+  } else {
+    float parity = mod(floor(f), 2.0);
+    lineCol = mix(uMid, uHigh, parity);
+  }
+
+  float coverage = clamp(mask + glow * 0.55, 0.0, 1.0);
+  coverage = pow(coverage, max(uContrast, 0.001));
+
+  vec3 outColor = lineCol;
+  float outAlpha = coverage;
+
+  if (uFillBands > 0.5) {
+    vec3 fillCol = elevationColor(elev);
+    float fillA = 0.1 * elev;
+    outColor = mix(fillCol, lineCol, coverage);
+    outAlpha = clamp(coverage + fillA, 0.0, 1.0);
+  }
+
+  if (uGrain > 0.5) {
+    float g = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233)) + iTime) * 43758.5453);
+    outAlpha += (g - 0.5) * uGrainIntensity;
+  }
+
+  outColor *= uBrightness;
+  outColor = clamp(outColor, 0.0, 1.0);
+
+  float a = clamp(outAlpha, 0.0, 1.0) * uOpacity;
+  fragColor = vec4(outColor * a, a);
+}
+`;
+
+        const renderer = new Renderer({
+            webgl: 2,
+            alpha: true,
+            premultipliedAlpha: true,
+            antialias: false,
+            dpr: Math.min(window.devicePixelRatio || 1, 2)
+        });
+
+        const gl = renderer.gl;
+        gl.clearColor(0, 0, 0, 0);
+        const canvas = gl.canvas;
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        canvas.style.display = 'block';
+        container.appendChild(canvas);
+
+        const geometry = new Triangle(gl);
+        const program = new Program(gl, {
+            vertex,
+            fragment,
+            uniforms: {
+                iTime: { value: 0 },
+                iResolution: { value: new Float32Array([1, 1]) },
+                uMorphAmount: { value: options.morphAmount },
+                uBands: { value: options.bands },
+                uThickness: { value: options.thickness },
+                uScale: { value: options.scale },
+                uPixelSize: { value: options.pixelSize },
+                uGlow: { value: options.glow },
+                uColorMode: { value: colorModeToFloat(options.colorMode) },
+                uContrast: { value: options.contrast },
+                uBrightness: { value: options.brightness },
+                uFillBands: { value: options.fillBands ? 1.0 : 0.0 },
+                uOpacity: { value: options.opacity },
+                uGrain: { value: options.grain ? 1.0 : 0.0 },
+                uGrainIntensity: { value: options.grainIntensity },
+                uLow: { value: new Float32Array(hexToRgb(options.lowColor)) },
+                uMid: { value: new Float32Array(hexToRgb(options.midColor)) },
+                uHigh: { value: new Float32Array(hexToRgb(options.highColor)) },
+                uMouse: { value: new Float32Array([0.5, 0.5]) },
+                uMouseEnabled: { value: options.mouseInteraction ? 1.0 : 0.0 },
+                uMouseRadius: { value: options.mouseRadius },
+                uMouseStrength: { value: options.mouseStrength },
+                uMouseActive: { value: 0.0 },
+                uCtrlA: { value: new Float32Array([0, 0, 0, 0]) },
+                uCtrlB: { value: new Float32Array([0, 0, 0, 0]) },
+                uCtrlC: { value: new Float32Array([0, 0, 0, 0]) },
+                uCtrlD: { value: new Float32Array([0, 0, 0, 0]) }
+            }
+        });
+
+        const mesh = new Mesh(gl, { geometry, program });
+
+        const setSize = () => {
+            const rect = container.getBoundingClientRect();
+            const w = Math.max(1, Math.floor(rect.width));
+            const h = Math.max(1, Math.floor(rect.height));
+            renderer.setSize(w, h);
+            const res = program.uniforms.iResolution.value;
+            res[0] = gl.drawingBufferWidth;
+            res[1] = gl.drawingBufferHeight;
+            renderer.render({ scene: mesh });
+        };
+
+        const ro = new ResizeObserver(setSize);
+        ro.observe(container);
+        setSize();
+
+        const currentMouse = [0.5, 0.5];
+        const targetMouse = [0.5, 0.5];
+        let mouseActive = 0;
+        let mouseActiveTarget = 0;
+
+        const onMouseMove = (e) => {
+            const rect = canvas.getBoundingClientRect();
+            targetMouse[0] = (e.clientX - rect.left) / rect.width;
+            targetMouse[1] = 1.0 - (e.clientY - rect.top) / rect.height;
+            mouseActiveTarget = 1;
+        };
+        const onMouseLeave = () => { mouseActiveTarget = 0; };
+        canvas.addEventListener('mousemove', onMouseMove);
+        canvas.addEventListener('mouseleave', onMouseLeave);
+
+        const ctrlIndices = [
+            [1, -2, 3, -4],
+            [9, -8, 7, -6],
+            [5, 2, 5, -5],
+            [-1, -3, 8, 9]
+        ];
+        const ctrlArrays = [
+            program.uniforms.uCtrlA.value,
+            program.uniforms.uCtrlB.value,
+            program.uniforms.uCtrlC.value,
+            program.uniforms.uCtrlD.value
+        ];
+
+        let raf = 0;
+        let isVisible = true;
+        let isPageVisible = !document.hidden;
+        const t0 = performance.now();
+
+        const loop = (t) => {
+            const time = (t - t0) * 0.001;
+            const u = program.uniforms;
+            u.iTime.value = time;
+
+            const ma = u.uMorphAmount.value;
+            for (let g = 0; g < 4; g++) {
+                const arr = ctrlArrays[g];
+                const idx = ctrlIndices[g];
+                for (let j = 0; j < 4; j++) {
+                    const i = idx[j];
+                    arr[j] = ma * Math.sin(time * options.speed * Math.sin(i * options.morphSpeed) + i);
+                }
+            }
+
+            currentMouse[0] += 0.05 * (targetMouse[0] - currentMouse[0]);
+            currentMouse[1] += 0.05 * (targetMouse[1] - currentMouse[1]);
+            u.uMouse.value[0] = currentMouse[0];
+            u.uMouse.value[1] = currentMouse[1];
+
+            mouseActive += 0.05 * (mouseActiveTarget - mouseActive);
+            u.uMouseActive.value = mouseActive;
+
+            renderer.render({ scene: mesh });
+            raf = requestAnimationFrame(loop);
+        };
+
+        const tryStart = () => { if (isVisible && isPageVisible && raf === 0) raf = requestAnimationFrame(loop); };
+        const tryStop = () => { if (raf !== 0) { cancelAnimationFrame(raf); raf = 0; } };
+
+        const io = new IntersectionObserver(([entry]) => {
+            isVisible = entry.isIntersecting;
+            isVisible ? tryStart() : tryStop();
+        }, { threshold: 0 });
+        io.observe(container);
+
+        document.addEventListener('visibilitychange', () => {
+            isPageVisible = !document.hidden;
+            isPageVisible ? tryStart() : tryStop();
+        });
+
+        tryStart();
+    }
 </script>
 
 </body>
