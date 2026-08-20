@@ -278,7 +278,23 @@
             letter-spacing: 0.08em;
             color: var(--cyan-dim);
             display: flex;
+            align-items: center;
             gap: 1.2rem;
+        }
+
+        .status-chip { display: inline-flex; align-items: center; }
+        .status-dot {
+            display: inline-block;
+            width: 6px; height: 6px;
+            margin-right: 0.6em;
+            border-radius: 50%;
+            background: var(--cyan);
+            box-shadow: 0 0 6px var(--cyan);
+            animation: statusPulse 2.2s ease-in-out infinite;
+        }
+        @keyframes statusPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
 
         .hero-eyebrow {
@@ -1145,6 +1161,7 @@
             .scroll-cue-line::after { animation: none !important; }
             .hero-focus { animation: none !important; opacity: 1 !important; }
             .split-flap-text__flap { animation: none !important; }
+            .status-dot { animation: none !important; }
         }
 
         /* ============================================================
@@ -1162,6 +1179,7 @@
             .hero-meta { padding-top: 1rem; }
             .sheet { padding: 4.5rem 6vw; }
             .sheet-head { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .sheet-head-left { flex-direction: column; align-items: flex-start; gap: 0.7rem; }
             .sheet-ref { text-align: left; }
             .academic-grid { grid-template-columns: 1fr; }
             .academic-block { border-right: none !important; }
@@ -1269,7 +1287,10 @@
     </div>
 
     <div class="scroll-cue"><div class="scroll-cue-line"></div>SCROLL</div>
-    <p class="hero-readout mono" id="cursorReadout">X 0000 · Y 0000</p>
+    <p class="hero-readout mono" id="cursorReadout">
+        <span class="status-chip"><span class="status-dot"></span>SYSTEM ONLINE</span>
+        <span id="cursorCoords">X 0000 · Y 0000</span>
+    </p>
 </section>
 
 <!-- ACADEMIC -->
@@ -1309,7 +1330,7 @@
             <div class="academic-block">
                 <div class="academic-label">In Progress</div>
                 <div class="academic-title">NCEA Level 3</div>
-                <br>
+                <div class="endorsement-tag" aria-hidden="true" style="visibility:hidden;">Spacer</div>
                 <ul class="alist">
                     <li>Physics</li>
                     <li>Calculus</li>
@@ -1321,7 +1342,7 @@
             <div class="academic-block">
                 <div class="academic-label">Appointed Roles</div>
                 <div class="academic-title">Ambassadorships</div>
-                <br>
+                <div class="endorsement-tag" aria-hidden="true" style="visibility:hidden;">Spacer</div>
                 <ul class="alist">
                     <li>SVA Ambassador</li>
                     <li>IPhyC — International Physics Ambassador</li>
@@ -1662,17 +1683,17 @@
     sheetEls.forEach(el => navObserver.observe(el));
 
     // cursor readout (desktop only)
-    const readout = document.getElementById('cursorReadout');
+    const coordsEl = document.getElementById('cursorCoords');
     const heroEl = document.getElementById('home');
-    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && readout && heroEl) {
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && coordsEl && heroEl) {
         heroEl.addEventListener('mousemove', (e) => {
             const r = heroEl.getBoundingClientRect();
             const x = Math.round(((e.clientX - r.left) / r.width) * 9999);
             const y = Math.round(((e.clientY - r.top) / r.height) * 9999);
-            readout.textContent = 'X ' + String(x).padStart(4, '0') + ' · Y ' + String(y).padStart(4, '0');
+            coordsEl.textContent = 'X ' + String(x).padStart(4, '0') + ' · Y ' + String(y).padStart(4, '0');
         });
-    } else if (readout) {
-        readout.style.display = 'none';
+    } else if (coordsEl) {
+        coordsEl.style.display = 'none';
     }
 
     // split-flap status board (vanilla port of React Bits' SplitFlapText)
